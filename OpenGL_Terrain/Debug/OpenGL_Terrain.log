@@ -1,0 +1,24 @@
+﻿  TerrainMesh.cpp
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(12): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(18): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(28): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(34): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(79): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(90): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(102): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(111): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(115): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(119): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(130): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(132): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(140): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(148): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terrainmesh.cpp(162): warning C4018: '<': signed/unsigned mismatch
+  TerrainGenerator.cpp
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terraingenerator.cpp(108): warning C4018: '<': signed/unsigned mismatch
+c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terraingenerator.cpp(112): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Debug\OpenGL_Terrain.exe
+  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Debug\OpenGL_Terrain.pdb (Partial PDB)
