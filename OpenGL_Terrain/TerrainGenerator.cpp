@@ -7,7 +7,8 @@
 #include <algorithm>
 #include <iostream>
 
-#define SCALE 8.0f
+#define SCALE 5.0f
+#define TERRAIN_HEIGHT_SCALE 100.0f
 
 float _angle = 60.0f;
 TerrainMesh* _terrain;
@@ -135,7 +136,12 @@ int main(int argc, char** argv)
     glutCreateWindow("Terrain Mesh Practice");
     initRendering();
 
-    _terrain = loadTerrain("heightmap.bmp", 20.0f);
+    //swiss2
+    //Britannia
+    //Slovinsko_Leveled
+    //heightmap
+    //pic1
+    _terrain = loadTerrain("pic1.bmp", TERRAIN_HEIGHT_SCALE);
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeyPress);
