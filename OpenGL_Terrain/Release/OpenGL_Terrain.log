@@ -1,0 +1,10 @@
+﻿  TerrainGenerator.cpp
+TerrainGenerator.cpp(136): warning C4018: '<': signed/unsigned mismatch
+TerrainGenerator.cpp(140): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  2 of 168 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.exe
+  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.pdb (Full PDB)

@@ -1,8 +1,8 @@
+#include "ImageLoader.h"
+
 #include <assert.h>
 #include <fstream>
 #include <iostream>
-
-#include "ImageLoader.h"
 
 using namespace std;
 

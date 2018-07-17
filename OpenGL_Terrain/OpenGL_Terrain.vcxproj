@@ -97,6 +97,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -113,12 +114,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PerlinGenerator.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="Vec3f.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PerlinGenerator.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="TerrainMesh.h" />
     <ClInclude Include="Vec3f.h" />

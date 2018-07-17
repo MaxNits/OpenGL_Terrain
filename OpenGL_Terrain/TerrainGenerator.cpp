@@ -1,14 +1,15 @@
+#include "ImageLoader.h"
 #include "TerrainMesh.h"
 #include "Vec3f.h"
-#include "ImageLoader.h"
 
 #include "GL/glut.h"
 
 #include <algorithm>
 #include <iostream>
 
-#define SCALE 5.0f
+#define SCALE 7.0f
 #define TERRAIN_HEIGHT_SCALE 100.0f
+#define CAMERA_VIEW_ANGLE 30.0f
 
 float _angle = 60.0f;
 TerrainMesh* _terrain;
@@ -52,6 +53,8 @@ void handleResize(int w, int h)
 void update(int value)
 {
     _angle += 1.0f;
+    //_angle = (float)((int)_angle % 360);
+
     if (_angle > 360) {
         _angle -= 360;
     }
@@ -81,14 +84,38 @@ TerrainMesh* loadTerrain(const char* filename, float height)
     return terrain;
 }
 
+TerrainMesh* generateTerrain(float width, float height)
+{
+    std::cout << "TerrainMesh* generateTerrain(float width, float height)" << std::endl;
+    
+    PerlinGenerator* mPerlinGenerator = new PerlinGenerator(1);
+    TerrainMesh* terrain = new TerrainMesh(width, height);
+    unsigned scaleFactor = 100;
+
+    for (int y = 0; y < height; y += 0.2)
+    {
+        for (int x = 0; x < width; x += 1)
+        {
+            //std::cout << "x = " << x << std::endl;
+
+            terrain->setHeight(x, y, scaleFactor * mPerlinGenerator->perlin(x / 100, y / 100, 0.34));
+        }
+    }
+
+    terrain->computeNormals();
+    return terrain;
+}
+
 void drawScene()
 {
+    std::cout << "void drawScene()" << std::endl;
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -10.0f);
-    glRotatef(30.0f, 1.0f, 0.0f, 0.0f);
+    glRotatef(CAMERA_VIEW_ANGLE, 1.0f, 0.0f, 0.0f);
     glRotatef(-_angle, 0.0f, 1.0f, 0.0f);
 
     GLfloat ambientColor[] = { 0.4f, 0.4f, 0.4f, 1.0f };
@@ -129,6 +156,8 @@ void drawScene()
 
 int main(int argc, char** argv)
 {
+    std::cout << "int main 1" << std::endl;
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
@@ -136,18 +165,28 @@ int main(int argc, char** argv)
     glutCreateWindow("Terrain Mesh Practice");
     initRendering();
 
+    std::cout << "int main 2" << std::endl;
+
     //swiss2
     //Britannia
     //Slovinsko_Leveled
     //heightmap
     //pic1
-    _terrain = loadTerrain("pic1.bmp", TERRAIN_HEIGHT_SCALE);
+    //_terrain = loadTerrain("pic1.bmp", TERRAIN_HEIGHT_SCALE);
+    _terrain = generateTerrain(5, 5);
+
+    std::cout << "int main 3" << std::endl;
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeyPress);
     glutReshapeFunc(handleResize);
     glutTimerFunc(25, update, 0);
 
+    std::cout << "int main 4" << std::endl;
+
     glutMainLoop();
+
+    std::cout << "int main 5" << std::endl;
+
     return 0;
 }

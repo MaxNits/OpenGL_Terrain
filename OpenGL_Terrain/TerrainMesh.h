@@ -1,5 +1,9 @@
 #pragma once
 
+#include "PerlinGenerator.h"
+
+#include <vector>
+
 class Vec3f;
 
 class TerrainMesh
@@ -22,9 +26,9 @@ public:
     Vec3f getNormal(unsigned x, unsigned z);
 
 private:
+    Vec3f** mNormals;
     unsigned mTerrainWidth;
     unsigned mTerrainLength;
-    Vec3f** mNormals;
     float** mHeights;
     bool mNormalsComputed;
 };

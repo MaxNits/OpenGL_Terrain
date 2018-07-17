@@ -1,5 +1,0 @@
-﻿  TerrainGenerator.cpp
-c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terraingenerator.cpp(109): warning C4018: '<': signed/unsigned mismatch
-c:\users\mnits\documents\visual studio 2015\projects\opengl_terrain\opengl_terrain\terraingenerator.cpp(113): warning C4018: '<': signed/unsigned mismatch
-  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Debug\OpenGL_Terrain.exe
-  OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Debug\OpenGL_Terrain.pdb (Partial PDB)
