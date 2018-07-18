@@ -8,12 +8,12 @@
 #include <iostream>
 
 #define SCALE 7.0f
-#define TERRAIN_HEIGHT_SCALE 100.0f
-#define CAMERA_VIEW_ANGLE 30.0f
+#define TERRAIN_HEIGHT_SCALE 40.0f
+#define CAMERA_VIEW_ANGLE 20.0f
 
 float _angle = 60.0f;
 TerrainMesh* _terrain;
-float _terrainColor[] = {0.3f, 0.9f, 0.0f};
+float _terrainColor[] = {0.9f, 0.9f, 0.9f};
 
 using namespace std;
 
@@ -53,14 +53,10 @@ void handleResize(int w, int h)
 void update(int value)
 {
     _angle += 1.0f;
-    //_angle = (float)((int)_angle % 360);
-
-    if (_angle > 360) {
-        _angle -= 360;
-    }
+    _angle = (float)((int)_angle % 360);
 
     glutPostRedisplay();
-    glutTimerFunc(25, update, 0);
+    glutTimerFunc(50, update, 0);
 }
 
 TerrainMesh* loadTerrain(const char* filename, float height)
@@ -86,20 +82,41 @@ TerrainMesh* loadTerrain(const char* filename, float height)
 
 TerrainMesh* generateTerrain(float width, float height)
 {
-    std::cout << "TerrainMesh* generateTerrain(float width, float height)" << std::endl;
-    
-    PerlinGenerator* mPerlinGenerator = new PerlinGenerator(1);
+    PerlinGenerator* mPerlinGenerator = new PerlinGenerator(500);
     TerrainMesh* terrain = new TerrainMesh(width, height);
-    unsigned scaleFactor = 100;
 
-    for (int y = 0; y < height; y += 0.2)
+    float heightScale = 200;
+    float heightScale2 = 20;
+    float heightScale3 = 10;
+    
+    float gridScaleFactor2 = 5;
+    float gridScaleFactor3 = 3;
+
+    float frequency = 10; // hills frequency
+
+    float offsetIncrement = 0.0001;
+    float octaves = 5;
+    float persistence = 2;
+
+    float xoff = 0;
+    float yoff = 0;
+
+    for (float y = 0; y < height; y++)
     {
-        for (int x = 0; x < width; x += 1)
-        {
-            //std::cout << "x = " << x << std::endl;
+        xoff = 0;
 
-            terrain->setHeight(x, y, scaleFactor * mPerlinGenerator->perlin(x / 100, y / 100, 0.34));
+        for (float x = 0; x < width; x++)
+        {
+            auto perlin = heightScale * 0.8 * (mPerlinGenerator->octavePerlin(xoff, yoff, 0, octaves, persistence) - 0.5) +
+                          (heightScale2 * mPerlinGenerator->octavePerlin(xoff * gridScaleFactor2, yoff * gridScaleFactor2, 0, octaves, persistence) - 0.5) +
+                          (heightScale3 * mPerlinGenerator->octavePerlin(xoff * gridScaleFactor3, yoff * gridScaleFactor3, 0, octaves, persistence) - 0.5);
+
+            terrain->setHeight((int)x, (int)y, perlin);
+
+            xoff += offsetIncrement * frequency;
         }
+
+        yoff += offsetIncrement * frequency;
     }
 
     terrain->computeNormals();
@@ -108,8 +125,6 @@ TerrainMesh* generateTerrain(float width, float height)
 
 void drawScene()
 {
-    std::cout << "void drawScene()" << std::endl;
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
@@ -156,8 +171,6 @@ void drawScene()
 
 int main(int argc, char** argv)
 {
-    std::cout << "int main 1" << std::endl;
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
@@ -165,28 +178,16 @@ int main(int argc, char** argv)
     glutCreateWindow("Terrain Mesh Practice");
     initRendering();
 
-    std::cout << "int main 2" << std::endl;
+    //swiss2 //Britannia //Slovinsko_Leveled //heightmap //pic1
+    _terrain = loadTerrain("Rug.bmp", TERRAIN_HEIGHT_SCALE);
 
-    //swiss2
-    //Britannia
-    //Slovinsko_Leveled
-    //heightmap
-    //pic1
-    //_terrain = loadTerrain("pic1.bmp", TERRAIN_HEIGHT_SCALE);
-    _terrain = generateTerrain(5, 5);
-
-    std::cout << "int main 3" << std::endl;
+    //_terrain = generateTerrain(500, 500);
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeyPress);
     glutReshapeFunc(handleResize);
     glutTimerFunc(25, update, 0);
-
-    std::cout << "int main 4" << std::endl;
-
     glutMainLoop();
-
-    std::cout << "int main 5" << std::endl;
 
     return 0;
 }

@@ -100,11 +100,11 @@ float PerlinGenerator::perlin(float x, float y, float z)
     // The left bound is ( |_x_|,|_y_|,|_z_| ) and the right bound is that
     // plus 1. Next we calculate the location (from 0.0 to 1.0) in that cube.
     int xi = (int)x & 255;
-    int yi = (int)y & 255;
+    int yi = (int)y & 255; // i stands for integer
     int zi = (int)z & 255;
 
     double xf = x - (int)x;
-    double yf = y - (int)y;
+    double yf = y - (int)y; // f stands for fraction
     double zf = z - (int)z;
 
     double u = fade(xf);
