@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <fstream>
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
@@ -137,7 +138,7 @@ private:
 };
 }
 
-Image* loadBMP(const char* filename)
+std::shared_ptr<Image> loadBMP(const char* filename)
 {
     std::cout << "ImageLoader: Started loading terrain" << std::endl;
 
@@ -218,5 +219,5 @@ Image* loadBMP(const char* filename)
 
     std::cout << "ImageLoader: Finished loading terrain" << std::endl;
 
-	return new Image(pixels_new.release(), width, height);
+	return std::make_shared<Image>(pixels_new.release(), width, height);
 }

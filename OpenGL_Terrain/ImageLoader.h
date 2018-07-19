@@ -1,6 +1,8 @@
 #ifndef IMAGE_LOADER_H_INCLUDED
 #define IMAGE_LOADER_H_INCLUDED
 
+#include <memory>
+
 class Image {
 public:
 	Image(char* ps, int w, int h);
@@ -20,6 +22,6 @@ public:
 };
 
 // Reads a bitmap image from file.
-Image* loadBMP(const char* filename);
+std::shared_ptr<Image> loadBMP(const char* filename);
 
 #endif

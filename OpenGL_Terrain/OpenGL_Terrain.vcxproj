@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="PerlinGenerator.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="TerrainMesh.cpp" />
     <ClCompile Include="Vec3f.cpp" />
@@ -123,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="PerlinGenerator.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainMesh.h" />
     <ClInclude Include="Vec3f.h" />
   </ItemGroup>

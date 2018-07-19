@@ -1,10 +1,23 @@
-﻿  TerrainGenerator.cpp
-TerrainGenerator.cpp(151): warning C4018: '<': signed/unsigned mismatch
-TerrainGenerator.cpp(155): warning C4018: '<': signed/unsigned mismatch
+﻿  Terrain.cpp
+Terrain.cpp(39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Terrain.cpp(49): warning C4305: 'initializing': truncation from 'double' to 'float'
+Terrain.cpp(63): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(901): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<float&,float&>(float &,float &)' being compiled
+          with
+          [
+              _Ty=TerrainHandle
+          ]
+  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<float&,float&>(float &,float &)' being compiled
+          with
+          [
+              _Ty=TerrainHandle
+          ]
+  Terrain.cpp(12): note: see reference to function template instantiation 'std::shared_ptr<TerrainHandle> std::make_shared<TerrainHandle,float&,float&>(float &,float &)' being compiled
   Generating code
-  1 of 181 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  1 of 263 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    18 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.exe
   OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.pdb (Full PDB)

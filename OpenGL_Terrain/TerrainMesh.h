@@ -6,12 +6,12 @@
 
 class Vec3f;
 
-class TerrainMesh
+class TerrainHandle
 {
 public:
-    TerrainMesh(unsigned width, unsigned length);
+    TerrainHandle(unsigned width, unsigned length);
 
-    ~TerrainMesh();
+    ~TerrainHandle();
 
     void setHeight(unsigned x, unsigned z, float y);
 

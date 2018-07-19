@@ -4,7 +4,7 @@
 #include <iostream>
 #include <chrono>
 
-TerrainMesh::TerrainMesh(unsigned width, unsigned length)
+TerrainHandle::TerrainHandle(unsigned width, unsigned length)
     : mTerrainWidth(width)
     , mTerrainLength(length)
 {
@@ -23,7 +23,7 @@ TerrainMesh::TerrainMesh(unsigned width, unsigned length)
     mNormalsComputed = false;
 }
 
-TerrainMesh::~TerrainMesh()
+TerrainHandle::~TerrainHandle()
 {
     for (int i = 0; i < mTerrainLength; i++)
     {
@@ -38,28 +38,28 @@ TerrainMesh::~TerrainMesh()
     delete[] mNormals;
 }
 
-void TerrainMesh::setHeight(unsigned x, unsigned z, float y)
+void TerrainHandle::setHeight(unsigned x, unsigned z, float y)
 {
     mHeights[x][z] = y;
     mNormalsComputed = false;
 }
 
-float TerrainMesh::getHeight(unsigned x, unsigned z)
+float TerrainHandle::getHeight(unsigned x, unsigned z)
 {
     return mHeights[x][z];
 }
 
-unsigned TerrainMesh::getWidth()
+unsigned TerrainHandle::getWidth()
 {
     return mTerrainWidth;
 }
 
-unsigned TerrainMesh::getLength()
+unsigned TerrainHandle::getLength()
 {
     return mTerrainLength;
 }
 
-void TerrainMesh::computeNormals()
+void TerrainHandle::computeNormals()
 {
     if (mNormalsComputed)
     {
@@ -167,7 +167,7 @@ void TerrainMesh::computeNormals()
     mNormalsComputed = true;
 }
 
-Vec3f TerrainMesh::getNormal(unsigned x, unsigned z)
+Vec3f TerrainHandle::getNormal(unsigned x, unsigned z)
 {
     if (!mNormalsComputed)
     {
