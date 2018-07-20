@@ -118,14 +118,14 @@
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
-    <ClCompile Include="TerrainMesh.cpp" />
+    <ClCompile Include="TerrainHandle.cpp" />
     <ClCompile Include="Vec3f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PerlinGenerator.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="Terrain.h" />
-    <ClInclude Include="TerrainMesh.h" />
+    <ClInclude Include="TerrainHandle.h" />
     <ClInclude Include="Vec3f.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

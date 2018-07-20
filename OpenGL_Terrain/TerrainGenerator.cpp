@@ -1,6 +1,6 @@
 #include "ImageLoader.h"
 #include "Terrain.h"
-#include "TerrainMesh.h"
+#include "TerrainHandle.h"
 #include "Vec3f.h"
 
 #include "GL/glut.h"
@@ -10,7 +10,7 @@
 #include <memory>
 
 #define SCALE 7.0f
-#define CAMERA_VIEW_ANGLE 20.0f
+#define CAMERA_VIEW_ANGLE 30.0f
 
 float gAngle = 60.0f;
 float gTerrainColor[] = {0.8f, 0.8f, 0.8f};

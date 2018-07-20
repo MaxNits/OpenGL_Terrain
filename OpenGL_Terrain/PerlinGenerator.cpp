@@ -44,7 +44,7 @@ float PerlinGenerator::fade(float t)
     return t * t * t * (t * (t * 6 - 15) + 10);
 }
 
-int PerlinGenerator::increment(int num)
+int PerlinGenerator::incrementWithRepeat(int num)
 {
     num++;
     if (mRepeatInterval > 0)
@@ -95,7 +95,6 @@ float PerlinGenerator::perlin(float x, float y, float z)
         z = fmod(z, mRepeatInterval);
     }
 
-
     // Calculate the "unit cube" that the point asked will be located in
     // The left bound is ( |_x_|,|_y_|,|_z_| ) and the right bound is that
     // plus 1. Next we calculate the location (from 0.0 to 1.0) in that cube.
@@ -112,21 +111,20 @@ float PerlinGenerator::perlin(float x, float y, float z)
     double w = fade(zf);
 
     // This hash function hashes all 8 unit cube coordinates surrounding the input coordinate.
-    // increment() is simply used to increment the numbers and make sure that the noise still repeats.
-    // If you didn't care about the ability to repeat, increment(xi) can be replaced by xi + 1.
+    // incrementWithRepeat() is simply used to increment the numbers and make sure that the noise still repeats.
+    // If you didn't care about the ability to repeat, incrementWithRepeat(xi) can be replaced by xi + 1.
     // The result of this hash function is a value between 0 and 255 (inclusive)because of our mPermutation[] array.
     int aaa, aba, aab, abb, baa, bba, bab, bbb;
     aaa = mPermutation[mPermutation[mPermutation[xi] + yi] + zi];
-    aba = mPermutation[mPermutation[mPermutation[xi] + increment(yi)] + zi];
-    aab = mPermutation[mPermutation[mPermutation[xi] + yi] + increment(zi)];
-    abb = mPermutation[mPermutation[mPermutation[xi] + increment(yi)] + increment(zi)];
-    baa = mPermutation[mPermutation[mPermutation[increment(xi)] + yi] + zi];
-    bba = mPermutation[mPermutation[mPermutation[increment(xi)] + increment(yi)] + zi];
-    bab = mPermutation[mPermutation[mPermutation[increment(xi)] + yi] + increment(zi)];
-    bbb = mPermutation[mPermutation[mPermutation[increment(xi)] + increment(yi)] + increment(zi)];
+    aba = mPermutation[mPermutation[mPermutation[xi] + incrementWithRepeat(yi)] + zi];
+    aab = mPermutation[mPermutation[mPermutation[xi] + yi] + incrementWithRepeat(zi)];
+    abb = mPermutation[mPermutation[mPermutation[xi] + incrementWithRepeat(yi)] + incrementWithRepeat(zi)];
+    baa = mPermutation[mPermutation[mPermutation[incrementWithRepeat(xi)] + yi] + zi];
+    bba = mPermutation[mPermutation[mPermutation[incrementWithRepeat(xi)] + incrementWithRepeat(yi)] + zi];
+    bab = mPermutation[mPermutation[mPermutation[incrementWithRepeat(xi)] + yi] + incrementWithRepeat(zi)];
+    bbb = mPermutation[mPermutation[mPermutation[incrementWithRepeat(xi)] + incrementWithRepeat(yi)] + incrementWithRepeat(zi)];
 
     float x1, x2, y1, y2;
-    
 
     // The gradient function calculates the dot product between a pseudorandom
     // gradient vector and the vector from the input coordinate to the 8

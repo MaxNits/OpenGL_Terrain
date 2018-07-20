@@ -11,7 +11,7 @@ public:
 
     float fade(float t);
 
-    int increment(int num);
+    int incrementWithRepeat(int num);
 
     float gradient(int hash, float x, float y, float z);
 

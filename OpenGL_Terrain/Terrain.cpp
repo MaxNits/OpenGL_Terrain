@@ -1,5 +1,5 @@
 #include "Terrain.h"
-#include "TerrainMesh.h"
+#include "TerrainHandle.h"
 #include "ImageLoader.h"
 #include "PerlinGenerator.h"
 
@@ -64,7 +64,6 @@ std::shared_ptr<TerrainHandle> Terrain::generateTerrain()
 
         yoff += offsetIncrement * frequency;
     }
-
 
     mTerrainHandle->computeNormals();
     return mTerrainHandle;
