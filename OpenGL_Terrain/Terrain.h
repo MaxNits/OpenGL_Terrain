@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
+#include <vector>
 
 class TerrainHandle;
-class PerlinGenerator;
+class PerlinDevice;
 
 class Terrain
 {
@@ -11,7 +12,7 @@ public:
 
     std::shared_ptr<TerrainHandle> loadTerrain(const char* filename, float height);
 
-    float perlinLevel(std::shared_ptr<PerlinGenerator> generator, float heightScale, float xoff, float yoff, float grid_scale, float octaves, float persistence);
+    float perlinLevel(std::shared_ptr<PerlinDevice> generator, float heightScale, float xoff, float yoff, float grid_scale, float octaves, float persistence);
 
     std::shared_ptr<TerrainHandle> generateTerrain();
 
@@ -19,6 +20,8 @@ public:
 
 private:
     std::shared_ptr<TerrainHandle> mTerrainHandle;
+
+    //std::vector<std::shared_ptr<Generator> > mGenerators;
 
     float mWidth;
     float mHeight;

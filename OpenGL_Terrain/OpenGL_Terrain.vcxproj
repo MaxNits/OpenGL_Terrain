@@ -114,16 +114,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PerlinGenerator.cpp" />
+    <ClCompile Include="PerlinDevice.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="RidgedDevice.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TerrainGenerator.cpp" />
     <ClCompile Include="TerrainHandle.cpp" />
     <ClCompile Include="Vec3f.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PerlinGenerator.h" />
+    <ClInclude Include="PerlinDevice.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="RidgedDevice.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainHandle.h" />
     <ClInclude Include="Vec3f.h" />

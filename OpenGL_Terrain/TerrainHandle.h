@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PerlinGenerator.h"
+#include "PerlinDevice.h"
 
 #include <vector>
 

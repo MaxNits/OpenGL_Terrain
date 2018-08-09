@@ -14,7 +14,7 @@
 
 float gAngle = 60.0f;
 float gTerrainColor[] = {0.8f, 0.8f, 0.8f};
-float gBackgroundColor[] = { 0.9, 0.85, 0.7, 1.0 };
+float gBackgroundColor[] = { 0.1, 0.1, 0.1, 1.0 };
 
 std::shared_ptr<Terrain> gTerrain;
 
@@ -61,7 +61,7 @@ void drawScene()
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.0f, 0.0f, -10.0f);
+    glTranslatef(0.0f, 0.0f, -10.0f); // x = left/right; y = up/down; z = dist to camera;
     glRotatef(CAMERA_VIEW_ANGLE, 1.0f, 0.0f, 0.0f);
     glRotatef(-gAngle, 0.0f, 1.0f, 0.0f);
 

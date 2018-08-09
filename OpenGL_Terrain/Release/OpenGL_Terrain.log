@@ -1,7 +1,8 @@
 ﻿  Terrain.cpp
-Terrain.cpp(37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-Terrain.cpp(47): warning C4305: 'initializing': truncation from 'double' to 'float'
-Terrain.cpp(61): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+Terrain.cpp(40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+Terrain.cpp(51): warning C4305: 'initializing': truncation from 'double' to 'float'
+Terrain.cpp(77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Terrain.cpp(77): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
 C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(901): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
   C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<float&,float&>(float &,float &)' being compiled
           with
@@ -13,51 +14,11 @@ C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(901): warn
           [
               _Ty=TerrainHandle
           ]
-  Terrain.cpp(12): note: see reference to function template instantiation 'std::shared_ptr<TerrainHandle> std::make_shared<TerrainHandle,float&,float&>(float &,float &)' being compiled
-  TerrainGenerator.cpp
-TerrainGenerator.cpp(17): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
-TerrainGenerator.cpp(84): warning C4018: '<': signed/unsigned mismatch
-TerrainGenerator.cpp(88): warning C4018: '<': signed/unsigned mismatch
-C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(901): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<int,int>(int &&,int &&)' being compiled
-          with
-          [
-              _Ty=Terrain
-          ]
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(971): note: see reference to function template instantiation 'std::_Ref_count_obj<_Ty>::_Ref_count_obj<int,int>(int &&,int &&)' being compiled
-          with
-          [
-              _Ty=Terrain
-          ]
-  TerrainGenerator.cpp(113): note: see reference to function template instantiation 'std::shared_ptr<Terrain> std::make_shared<Terrain,int,int>(int &&,int &&)' being compiled
-  C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\memory(439): note: see reference to class template instantiation 'std::_Ptr_base<_Ty>' being compiled
-          with
-          [
-              _Ty=Terrain
-          ]
-  TerrainGenerator.cpp(19): note: see reference to class template instantiation 'std::shared_ptr<Terrain>' being compiled
-  TerrainHandle.cpp
-TerrainHandle.cpp(13): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(19): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(27): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(33): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(71): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(76): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(78): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(89): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(101): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(110): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(114): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(118): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(129): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(131): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(139): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(147): warning C4018: '<': signed/unsigned mismatch
-TerrainHandle.cpp(161): warning C4018: '<': signed/unsigned mismatch
+  Terrain.cpp(15): note: see reference to function template instantiation 'std::shared_ptr<TerrainHandle> std::make_shared<TerrainHandle,float&,float&>(float &,float &)' being compiled
   Generating code
-  11 of 263 functions ( 4.2%) were compiled, the rest were copied from previous compilation.
+  1 of 280 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.exe
   OpenGL_Terrain.vcxproj -> C:\Users\mnits\Documents\Visual Studio 2015\Projects\OpenGL_Terrain\Release\OpenGL_Terrain.pdb (Full PDB)
