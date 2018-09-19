@@ -13,5 +13,5 @@ float RidgedDevice::ridgeNoice(float x, float y, float height)
 
 float RidgedDevice::generateRidged(float x, float y)
 {
-
+	return 1.0f;
 }

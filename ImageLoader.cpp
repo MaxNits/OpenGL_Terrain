@@ -97,7 +97,7 @@ public:
 			delete[] array;
 		}
 
-		array rhs.array;
+		array = rhs.array;
 		isReleased = rhs.isReleased;
         rhs.isReleased = true;
 	}
