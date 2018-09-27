@@ -13,7 +13,7 @@
 #define CAMERA_VIEW_ANGLE 30.0f
 
 float gAngle = 60.0f;
-float gTerrainColor[] = {0.8f, 0.8f, 0.8f};
+float gTerrainColor[] = {0.85f, 0.85f, 0.85f};
 float gBackgroundColor[] = { 0.1, 0.1, 0.1, 1.0 };
 
 std::shared_ptr<Terrain> gTerrain;
@@ -110,7 +110,7 @@ int main(int argc, char** argv)
     glutCreateWindow("Terrain Mesh Practice");
     initRendering();
 
-    gTerrain = std::make_shared<Terrain>(500,500);
+    gTerrain = std::make_shared<Terrain>(500, 500);
     gTerrain->generateTerrain();
 
     glutDisplayFunc(drawScene);

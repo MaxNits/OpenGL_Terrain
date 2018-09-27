@@ -4,24 +4,24 @@ using namespace noise::module;
 
 Module::Module(int sourceModuleCount)
 {
-	m_pSourceModule = NULL;
+	mSourceModule = NULL;
 
 	// Create an array of pointers to all source modules required by this
 	// noise module.  Set these pointers to NULL.
 	if (sourceModuleCount > 0) {
-		m_pSourceModule = new const Module*[sourceModuleCount];
+		mSourceModule = new const Module*[sourceModuleCount];
 		for (int i = 0; i < sourceModuleCount; i++) {
-			m_pSourceModule[i] = NULL;
+			mSourceModule[i] = NULL;
 		}
 	}
 	else {
-		m_pSourceModule = NULL;
+		mSourceModule = NULL;
 	}
 }
 
 Module::~Module()
 {
-	delete[] m_pSourceModule;
+	delete[] mSourceModule;
 }
 
 const Module& Module::GetSourceModule(int index) const
@@ -29,11 +29,11 @@ const Module& Module::GetSourceModule(int index) const
 	assert(m_pSourceModule != NULL);
 
 	if (index >= GetSourceModuleCount() || index < 0
-		|| m_pSourceModule[index] == NULL) {
+		|| mSourceModule[index] == NULL) {
 		throw noise::ExceptionNoModule();
 	}
 
-	return *(m_pSourceModule[index]);
+	return *(mSourceModule[index]);
 }
 
 void Module::SetSourceModule(int index, const Module& sourceModule)
@@ -44,5 +44,5 @@ void Module::SetSourceModule(int index, const Module& sourceModule)
 		throw noise::ExceptionInvalidParam();
 	}
 
-	m_pSourceModule[index] = &sourceModule;
+	mSourceModule[index] = &sourceModule;
 }

@@ -10,42 +10,40 @@
 
 namespace noise
 {
-
 namespace module
 {
-		class Module
-		{
 
-		public:
-			Module(int sourceModuleCount);
+class Module
+{
 
-			virtual ~Module();
+public:
+	Module(int sourceModuleCount);
 
-			virtual int GetSourceModuleCount() const = 0;
+	virtual ~Module();
 
-			virtual const Module& GetSourceModule(int index) const;
+	virtual int GetSourceModuleCount() const = 0;
 
-			virtual double GetValue(double x, double y, double z) const = 0;
+	virtual const Module& GetSourceModule(int index) const;
 
-			virtual void SetSourceModule(int index, const Module& sourceModule);
+	virtual double GetValue(double x, double y, double z) const = 0;
 
-		protected:
-			// An array containing the pointers to each source module required by this noise module.
-			const Module** m_pSourceModule; 
+	virtual void SetSourceModule(int index, const Module& sourceModule);
 
-		private:
-			/// This assignment operator does nothing and cannot be overridden.
-			/// This restriction is necessary because if this object was copied,
-			/// all source modules assigned to this noise module would need to be
-			/// copied as well.
-			const Module& operator= (const Module& m)
-			{
-				return *this;
-			}
-		};
+protected:
+	// An array containing the pointers to each source module required by this noise module.
+	const Module** mSourceModule; 
 
+private:
+	// This assignment operator does nothing and cannot be overridden. This restriction
+	// is necessary because if this object was copied, all source modules assigned to 
+	// this noise module would need to be copied as well.
+	const Module& operator= (const Module& module)
+	{
+		return *this;
 	}
+};
 
+}
 }
 
 #endif
