@@ -5,122 +5,122 @@
 
 namespace noise
 {
+namespace module
+{
 
-  namespace module
-  {
-    /// Default frequency for the noise::module::Perlin noise module.
-    const double DEFAULT_PERLIN_FREQUENCY = 1.0;
+/// Default frequency for the noise::module::Perlin noise module.
+const double DEFAULT_PERLIN_FREQUENCY = 1.0;
 
-    /// Default lacunarity for the noise::module::Perlin noise module.
-    const double DEFAULT_PERLIN_LACUNARITY = 2.0;
+/// Default lacunarity for the noise::module::Perlin noise module.
+const double DEFAULT_PERLIN_LACUNARITY = 2.0;
 
-    /// Default number of octaves for the noise::module::Perlin noise module.
-    const int DEFAULT_PERLIN_OCTAVE_COUNT = 6;
+/// Default number of octaves for the noise::module::Perlin noise module.
+const int DEFAULT_PERLIN_OCTAVE_COUNT = 6;
 
-    /// Default persistence value for the noise::module::Perlin noise module.
-    const double DEFAULT_PERLIN_PERSISTENCE = 0.5;
+/// Default persistence value for the noise::module::Perlin noise module.
+const double DEFAULT_PERLIN_PERSISTENCE = 0.5;
 
-    /// Default noise quality for the noise::module::Perlin noise module.
-    const noise::NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
+/// Default noise quality for the noise::module::Perlin noise module.
+const noise::NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
 
-    /// Default noise seed for the noise::module::Perlin noise module.
-    const int DEFAULT_PERLIN_SEED = 0;
+/// Default noise seed for the noise::module::Perlin noise module.
+const int DEFAULT_PERLIN_SEED = 0;
 
-    /// Maximum number of octaves for the noise::module::Perlin noise module.
-    const int PERLIN_MAX_OCTAVE = 30;
+/// Maximum number of octaves for the noise::module::Perlin noise module.
+const int PERLIN_MAX_OCTAVE = 30;
 
-    class Perlin: public Module
+class Perlin: public Module
+{
+
+public:
+    Perlin ();
+
+	virtual int GetSourceModuleCount() const override 
+	{ 
+		return 0; 
+	}
+
+    virtual double GetValue(double x, double y, double z) const override;
+
+    // Returns the frequency of the first octave
+    double GetFrequency () const
     {
+		return m_frequency;
+    }
 
-      public:
-        Perlin ();
+    // The lacunarity is the frequency multiplier between successive octaves.
+	double GetLacunarity() const
+	{ 
+		return m_lacunarity;
+	}
 
-        // Returns the frequency of the first octave
-        double GetFrequency () const
-        {
-          return m_frequency;
-        }
+    noise::NoiseQuality GetNoiseQuality () const
+    {
+		return m_noiseQuality;
+    }
 
-        // The lacunarity is the frequency multiplier between successive octaves.
-        double GetLacunarity () const
-        {
-          return m_lacunarity;
-        }
+    int GetOctaveCount () const
+    {
+		return m_octaveCount;
+    }
 
-        noise::NoiseQuality GetNoiseQuality () const
-        {
-          return m_noiseQuality;
-        }
+    double GetPersistence () const
+    {
+		return m_persistence;
+    }
 
-        int GetOctaveCount () const
-        {
-          return m_octaveCount;
-        }
+    int GetSeed () const
+    {
+		return m_seed;
+    }
 
-        double GetPersistence () const
-        {
-          return m_persistence;
-        }
+    // Sets the frequency of the first octave
+    void SetFrequency (double frequency)
+    {
+		m_frequency = frequency;
+    }
 
-        int GetSeed () const
-        {
-          return m_seed;
-        }
+    void SetLacunarity (double lacunarity)
+    {		
+		// For best results, set the lacunarity to a number between 1.5 and 3.5	
+		m_lacunarity = lacunarity;
+    }
 
-        virtual int GetSourceModuleCount () const
-        {
-          return 0;
-        }
+    void SetNoiseQuality (noise::NoiseQuality noiseQuality)
+    {
+		m_noiseQuality = noiseQuality;
+    }
 
-        virtual double GetValue (double x, double y, double z) const;
+    void SetOctaveCount (int octaveCount)
+    {
+		if (octaveCount < 1 || octaveCount > PERLIN_MAX_OCTAVE)
+		{
+			throw noise::ExceptionInvalidParam();
+		}
 
-        /// Sets the frequency of the first octave.
-        ///
-        /// @param frequency The frequency of the first octave.
-        void SetFrequency (double frequency)
-        {
-          m_frequency = frequency;
-        }
+		m_octaveCount = octaveCount;
+    }
 
-        void SetLacunarity (double lacunarity)
-        {
-			// For best results, set the lacunarity to a number between 1.5 and 3.5.
-			m_lacunarity = lacunarity;
-        }
+    void SetPersistence (double persistence)
+    {		
+		// For best results, set the persistence to a number between 0.0 and 1.0.		
+		m_persistence = persistence;
+    }
 
-        void SetNoiseQuality (noise::NoiseQuality noiseQuality)
-        {
-          m_noiseQuality = noiseQuality;
-        }
+    void SetSeed (int seed)
+    {
+		m_seed = seed;
+    }
 
-        void SetOctaveCount (int octaveCount)
-        {
-          if (octaveCount < 1 || octaveCount > PERLIN_MAX_OCTAVE) {
-            throw noise::ExceptionInvalidParam ();
-          }
-          m_octaveCount = octaveCount;
-        }
+protected:
+    double m_frequency; // Frequency of the first octave
+    double m_lacunarity; // Frequency multiplier between successive octaves
+    noise::NoiseQuality m_noiseQuality;	int m_octaveCount;
+    double m_persistence;
+    int m_seed;
+};
 
-        void SetPersistence (double persistence)
-        {
-			// For best results, set the persistence to a number between 0.0 and 1.0.
-			m_persistence = persistence;
-        }
-
-        void SetSeed (int seed)
-        {
-          m_seed = seed;
-        }
-
-	  protected:
-        double m_frequency; // Frequency of the first octave.
-        double m_lacunarity; // Frequency multiplier between successive octaves.
-        noise::NoiseQuality m_noiseQuality;
-		int m_octaveCount;
-        double m_persistence;
-        int m_seed;
-    };
-  }
+}
 }
 
 #endif

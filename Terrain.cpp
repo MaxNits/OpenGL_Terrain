@@ -3,6 +3,7 @@
 #include "ImageLoader.h"
 #include "PerlinDevice.h"
 #include "RidgedDevice.h"
+#include "Perlin.h"
 
 #include <iostream>
 
@@ -44,7 +45,13 @@ std::shared_ptr<TerrainHandle> Terrain::generateTerrain()
 {
     mTerrainHandle = std::make_shared<TerrainHandle>(mWidth, mHeight);
 
-    std::shared_ptr<PerlinDevice> mPerlinGenerator = std::make_shared<PerlinDevice>(500);
+    //std::shared_ptr<PerlinDevice> mPerlinGenerator = std::make_shared<PerlinDevice>(500);
+    noise::module::Perlin perlinModule;
+    perlinModule.SetFrequency(2.0);
+    perlinModule.SetLacunarity(3.0);
+    perlinModule.SetOctaveCount(10);
+    perlinModule.SetPersistence(0.3);
+
     std::shared_ptr<RidgedDevice> mRidgedDevice = std::make_shared<RidgedDevice>();
 
     float frequency = 3; // hills frequency
@@ -63,18 +70,19 @@ std::shared_ptr<TerrainHandle> Terrain::generateTerrain()
                           perlinLevel(mPerlinGenerator, 30, xoff, yoff, 5, 5, 2) +
                           perlinLevel(mPerlinGenerator, 3, xoff, yoff, 30, 5, 2);*/
 
-            auto perlin = mPerlinGenerator->octavePerlin(xoff * 1, yoff * 1, 0, 5, 2);
+            //auto perlin = mPerlinGenerator->octavePerlin(xoff * 1, yoff * 1, 0, 5, 2);
 
             //std::cout << "Perlin = " << perlin << std::endl;
 
-            auto ridged0 = mRidgedDevice->ridgeNoice(xoff, yoff, perlin);
+            /*auto ridged0 = mRidgedDevice->ridgeNoice(xoff, yoff, perlin);
             auto ridged1 = 0.5 * mRidgedDevice->ridgeNoice(2 * xoff, 2 * yoff, perlin) * ridged0;
             auto ridged2 = 0.25 * mRidgedDevice->ridgeNoice(xoff, yoff, perlin) * (ridged0 + ridged1);
-            auto height = ridged0 + ridged1 + ridged2;
+            auto height = ridged0 + ridged1 + ridged2*/
 
-            //std::cout << "height = " << height << std::endl;
+            auto output = perlinModule.GetValue(xoff, yoff, 0);
+            //std::cout << output << std::endl;
 
-            mTerrainHandle->setHeight(x, y, 100 * height);
+			mTerrainHandle->setHeight(x, y, 500 * output);
             xoff += offsetIncrement * frequency;
         }
 

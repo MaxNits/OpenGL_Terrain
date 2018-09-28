@@ -21,11 +21,11 @@ public:
 
 	virtual ~Module();
 
+	virtual double GetValue(double x, double y, double z) const = 0;
+
 	virtual int GetSourceModuleCount() const = 0;
 
 	virtual const Module& GetSourceModule(int index) const;
-
-	virtual double GetValue(double x, double y, double z) const = 0;
 
 	virtual void SetSourceModule(int index, const Module& sourceModule);
 

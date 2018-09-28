@@ -10,7 +10,7 @@
 #include <memory>
 
 #define SCALE 7.0f
-#define CAMERA_VIEW_ANGLE 30.0f
+#define CAMERA_VIEW_ANGLE 20.0f
 
 float gAngle = 60.0f;
 float gTerrainColor[] = {0.85f, 0.85f, 0.85f};
