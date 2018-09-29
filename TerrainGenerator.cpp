@@ -1,123 +1,85 @@
-#include "ImageLoader.h"
-#include "Terrain.h"
+#include "TerrainGenerator.h"
 #include "TerrainHandle.h"
-#include "Vec3f.h"
+#include "ImageLoader.h"
+#include "PerlinDevice.h"
+#include "RidgedDevice.h"
+#include "Perlin.h"
 
-#include "GL/glut.h"
-
-#include <algorithm>
 #include <iostream>
 #include <memory>
+#include <vector>
+#include <iterator>
 
-#define SCALE 7.0f
-#define CAMERA_VIEW_ANGLE 20.0f
+constexpr auto HEIGHT_SHIFT = 0.5f;
 
-float gAngle = 60.0f;
-float gTerrainColor[] = {0.85f, 0.85f, 0.85f};
-float gBackgroundColor[] = { 0.1, 0.1, 0.1, 1.0 };
+using namespace noise::module;
 
-std::shared_ptr<Terrain> gTerrain;
-
-void handleKeyPress(unsigned char key, int x, int y)
+TerrainGenerator::TerrainGenerator(float width, float height)
+    : mWidth(width)
+    , mHeight(height)
 {
-    switch (key)
+    mTerrainHandle = std::make_shared<TerrainHandle>(mWidth, mHeight);
+
+	std::shared_ptr<Perlin> perlinModule = std::make_shared<Perlin>();
+	perlinModule->SetFrequency(2.0);
+    perlinModule->SetLacunarity(3.0);
+    perlinModule->SetOctaveCount(10);
+    perlinModule->SetPersistence(0.3);
+
+    mModules.push_back(perlinModule);
+}
+
+std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
+{
+    std::shared_ptr<Image> image = loadBMP(filename);
+    mTerrainHandle = std::make_shared<TerrainHandle>(image->width, image->height);
+
+    for (int y = 0; y < image->height; ++y)
     {
-    case 27: // ESC key
-        exit(0);
-    }
-}
-
-void initRendering()
-{
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_NORMALIZE);
-    glShadeModel(GL_SMOOTH);
-}
-
-void handleResize(int w, int h)
-{
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.0, (double)w / (double)h, 1.0, 200.0);
-}
-
-void update(int value)
-{
-    gAngle += 1.0f;
-    gAngle = (float)((int)gAngle % 360);
-
-    glutPostRedisplay();
-    glutTimerFunc(50, update, 0);
-}
-
-void drawScene()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(gBackgroundColor[0], gBackgroundColor[1], gBackgroundColor[2], gBackgroundColor[3]);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(0.0f, 0.0f, -10.0f); // x = left/right; y = up/down; z = dist to camera;
-    glRotatef(CAMERA_VIEW_ANGLE, 1.0f, 0.0f, 0.0f);
-    glRotatef(-gAngle, 0.0f, 1.0f, 0.0f);
-
-    GLfloat ambientColor[] = { 0.4f, 0.4f, 0.4f, 1.0f };
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-
-    GLfloat lightColor0[] = { 0.6f, 0.6f, 0.6f, 1.0f };
-    GLfloat lightPos0[] = { -0.5f, 0.8f, 0.1f, 0.0f };
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
-
-    const auto handle = gTerrain->getHandle();
-
-    float scale = SCALE / std::max(handle->getWidth() - 1, handle->getLength() - 1);
-    glScalef(scale, scale, scale);
-    glTranslatef(-float(handle->getWidth()) / 2, 0.0f, -float(handle->getLength()) / 2);
-
-    glColor3f(gTerrainColor[0], gTerrainColor[1], gTerrainColor[2]);
-
-    for (int z = 0; z < handle->getLength() - 1; z++)
-    {
-        glBegin(GL_TRIANGLE_STRIP);
-
-        for (int x = 0; x < handle->getWidth() - 1; x++)
+        for (int x = 0; x < image->width; ++x)
         {
-            Vec3f normal = handle->getNormal(x, z);
-            glNormal3f(normal.x, normal.z, normal.y); // x,z,y order <- can be a source of ERROR
-            glVertex3f(x, handle->getHeight(x, z), z);
+            unsigned char color = (unsigned char)image->pixels[3 * (y * image->width + x)];
+            float h = height * ((color / 255.0f) - 0.5f);
+            mTerrainHandle->setHeight(x, y, h);
+        }
+    }
 
-            normal = handle->getNormal(x, z + 1);
-            glNormal3f(normal.x, normal.z, normal.y);
-            glVertex3f(x, handle->getHeight(x, z + 1), z + 1);
+    mTerrainHandle->computeNormals();
+    return mTerrainHandle;
+}
+
+std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
+{
+    float frequency = 3; // hills frequency
+    float offsetIncrement = 0.0001;
+    float xoff = 0; // Perlin noise needs values between 0 and 1
+    float yoff = 0; // That's why we feed it small incremental values for our [x,y] matrix
+
+    for (float y = 0; y < mHeight; y++)
+    {
+        xoff = 0;
+
+        for (float x = 0; x < mWidth; x++)
+        {
+			float output = 0.f;
+			
+			for (std::shared_ptr<Module> it : mModules)
+			{
+				output = it->GetValue(xoff, yoff, 0);
+			}
+
+			mTerrainHandle->setHeight(x, y, 500 * output);
+            xoff += offsetIncrement * frequency;
         }
 
-        glEnd();
+        yoff += offsetIncrement * frequency;
     }
 
-    glutSwapBuffers();
+    mTerrainHandle->computeNormals();
+    return mTerrainHandle;
 }
 
-int main(int argc, char** argv)
+const std::shared_ptr<TerrainHandle> TerrainGenerator::getHandle()
 {
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("Terrain Mesh Practice");
-    initRendering();
-
-    gTerrain = std::make_shared<Terrain>(500, 500);
-    gTerrain->generateTerrain();
-
-    glutDisplayFunc(drawScene);
-    glutKeyboardFunc(handleKeyPress);
-    glutReshapeFunc(handleResize);
-    glutTimerFunc(25, update, 0);
-    glutMainLoop();
-
-    return 0;
+    return mTerrainHandle;
 }

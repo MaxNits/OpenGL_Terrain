@@ -6,7 +6,7 @@
 
 using namespace noise;
 
-#define NOISE_VERSION 2
+constexpr unsigned NOISE_VERSION = 2;
 
 
 #if (NOISE_VERSION == 1)

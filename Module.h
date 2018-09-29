@@ -31,7 +31,7 @@ public:
 
 protected:
 	// An array containing the pointers to each source module required by this noise module.
-	const Module** mSourceModule; 
+	const Module** mSourceModule;
 
 private:
 	// This assignment operator does nothing and cannot be overridden. This restriction

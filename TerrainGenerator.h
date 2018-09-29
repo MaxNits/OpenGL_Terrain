@@ -1,19 +1,18 @@
 #pragma once
 
+#include "Module.h"
+
 #include <memory>
 #include <vector>
 
 class TerrainHandle;
-class PerlinDevice;
 
-class Terrain
+class TerrainGenerator
 {
 public:
-    Terrain(float width, float height);
+    TerrainGenerator(float width, float height);
 
     std::shared_ptr<TerrainHandle> loadTerrain(const char* filename, float height);
-
-    float perlinLevel(std::shared_ptr<PerlinDevice> generator, float heightScale, float xoff, float yoff, float grid_scale, float octaves, float persistence);
 
     std::shared_ptr<TerrainHandle> generateTerrain();
 
@@ -22,7 +21,7 @@ public:
 private:
     std::shared_ptr<TerrainHandle> mTerrainHandle;
 
-    //std::vector<std::shared_ptr<Generator> > mGenerators;
+    std::vector<std::shared_ptr<noise::module::Module> > mModules;
 
     float mWidth;
     float mHeight;
