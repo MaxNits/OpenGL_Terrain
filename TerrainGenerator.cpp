@@ -35,7 +35,7 @@ TerrainGenerator::TerrainGenerator(float width, float height)
 
 	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
     billowModule->SetFrequency(2.0);
-    billowModule->SetLacunarity(5.0);
+    billowModule->SetLacunarity(3.5);
     billowModule->SetOctaveCount(10);
     billowModule->SetPersistence(0.2);
 

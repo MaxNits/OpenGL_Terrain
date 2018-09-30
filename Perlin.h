@@ -18,90 +18,40 @@ const int PERLIN_MAX_OCTAVE = 30;
 
 class Perlin: public Module
 {
-
 public:
     Perlin ();
 
-	virtual int GetSourceModuleCount() const override 
-	{ 
-		return 0; 
-	}
+	virtual int GetSourceModuleCount() const override;
 
     virtual double GetValue(double x, double y, double z) const override;
 
-    // Returns the frequency of the first octave
-    double GetFrequency() const
-    {
-		return m_frequency;
-    }
+    double GetFrequency() const;
 
-    // The lacunarity is the frequency multiplier between successive octaves.
-	double GetLacunarity() const
-	{ 
-		return m_lacunarity;
-	}
+	double GetLacunarity() const;
 
-    noise::NoiseQuality GetNoiseQuality() const
-    {
-		return m_noiseQuality;
-    }
+    noise::NoiseQuality GetNoiseQuality() const;
 
-    int GetOctaveCount() const
-    {
-		return m_octaveCount;
-    }
+    int GetOctaveCount() const;
 
-    double GetPersistence() const
-    {
-		return m_persistence;
-    }
+    double GetPersistence() const;
 
-    int GetSeed() const
-    {
-		return m_seed;
-    }
+    int GetSeed() const;
 
-    // Sets the frequency of the first octave
-    void SetFrequency(double frequency)
-    {
-		m_frequency = frequency;
-    }
+    void SetFrequency(double frequency);
 
-    void SetLacunarity(double lacunarity)
-    {		
-		// For best results, set the lacunarity to a number between 1.5 and 3.5	
-		m_lacunarity = lacunarity;
-    }
+    void SetLacunarity(double lacunarity);
 
-    void SetNoiseQuality(noise::NoiseQuality noiseQuality)
-    {
-		m_noiseQuality = noiseQuality;
-    }
+    void SetNoiseQuality(noise::NoiseQuality noiseQuality);
 
-    void SetOctaveCount(int octaveCount)
-    {
-		if (octaveCount < 1 || octaveCount > PERLIN_MAX_OCTAVE)
-		{
-			throw noise::ExceptionInvalidParam();
-		}
+    void SetOctaveCount(int octaveCount);
 
-		m_octaveCount = octaveCount;
-    }
+    void SetPersistence(double persistence);
 
-    void SetPersistence(double persistence)
-    {		
-		// For best results, set the persistence to a number between 0.0 and 1.0.		
-		m_persistence = persistence;
-    }
-
-    void SetSeed(int seed)
-    {
-		m_seed = seed;
-    }
+    void SetSeed(int seed);
 
 protected:
-    double m_frequency; // Frequency of the first octave
-    double m_lacunarity; // Frequency multiplier between successive octaves
+    double m_frequency;
+    double m_lacunarity;
     noise::NoiseQuality m_noiseQuality;	int m_octaveCount;
     double m_persistence;
     int m_seed;
