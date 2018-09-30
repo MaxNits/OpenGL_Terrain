@@ -30,7 +30,7 @@ public:
     virtual double GetValue(double x, double y, double z) const override;
 
     // Returns the frequency of the first octave
-    double GetFrequency () const
+    double GetFrequency() const
     {
 		return m_frequency;
     }
@@ -41,44 +41,44 @@ public:
 		return m_lacunarity;
 	}
 
-    noise::NoiseQuality GetNoiseQuality () const
+    noise::NoiseQuality GetNoiseQuality() const
     {
 		return m_noiseQuality;
     }
 
-    int GetOctaveCount () const
+    int GetOctaveCount() const
     {
 		return m_octaveCount;
     }
 
-    double GetPersistence () const
+    double GetPersistence() const
     {
 		return m_persistence;
     }
 
-    int GetSeed () const
+    int GetSeed() const
     {
 		return m_seed;
     }
 
     // Sets the frequency of the first octave
-    void SetFrequency (double frequency)
+    void SetFrequency(double frequency)
     {
 		m_frequency = frequency;
     }
 
-    void SetLacunarity (double lacunarity)
+    void SetLacunarity(double lacunarity)
     {		
 		// For best results, set the lacunarity to a number between 1.5 and 3.5	
 		m_lacunarity = lacunarity;
     }
 
-    void SetNoiseQuality (noise::NoiseQuality noiseQuality)
+    void SetNoiseQuality(noise::NoiseQuality noiseQuality)
     {
 		m_noiseQuality = noiseQuality;
     }
 
-    void SetOctaveCount (int octaveCount)
+    void SetOctaveCount(int octaveCount)
     {
 		if (octaveCount < 1 || octaveCount > PERLIN_MAX_OCTAVE)
 		{
@@ -88,13 +88,13 @@ public:
 		m_octaveCount = octaveCount;
     }
 
-    void SetPersistence (double persistence)
+    void SetPersistence(double persistence)
     {		
 		// For best results, set the persistence to a number between 0.0 and 1.0.		
 		m_persistence = persistence;
     }
 
-    void SetSeed (int seed)
+    void SetSeed(int seed)
     {
 		m_seed = seed;
     }

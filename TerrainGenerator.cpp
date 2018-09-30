@@ -1,14 +1,14 @@
+#include "Billow.h"
+#include "ImageLoader.h"
+#include "Perlin.h"
+#include "RidgedMulti.h"
 #include "TerrainGenerator.h"
 #include "TerrainHandle.h"
-#include "ImageLoader.h"
-#include "PerlinDevice.h"
-#include "RidgedMulti.h"
-#include "Perlin.h"
 
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <vector>
-#include <iterator>
 
 using namespace noise::module;
 
@@ -19,12 +19,12 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     mTerrainHandle = std::make_shared<TerrainHandle>(mWidth, mHeight);
 
 	std::shared_ptr<Perlin> perlinModule = std::make_shared<Perlin>();
-	perlinModule->SetFrequency(2.0);
-    perlinModule->SetLacunarity(3.0);
-    perlinModule->SetOctaveCount(10);
+	perlinModule->SetFrequency(1.0);
+    perlinModule->SetLacunarity(5.0);
+    perlinModule->SetOctaveCount(3);
     perlinModule->SetPersistence(0.3);
 
-    //mModules.push_back(perlinModule);
+    mModules.push_back(perlinModule);
 
 	std::shared_ptr<RidgedMulti> ridgedModule = std::make_shared<RidgedMulti>();
     ridgedModule->SetFrequency(2.0);
@@ -32,6 +32,14 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     ridgedModule->SetOctaveCount(10);
 
     mModules.push_back(ridgedModule);
+
+	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
+    billowModule->SetFrequency(2.0);
+    billowModule->SetLacunarity(5.0);
+    billowModule->SetOctaveCount(10);
+    billowModule->SetPersistence(0.2);
+
+    mModules.push_back(billowModule);
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
@@ -70,10 +78,10 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
 			
 			for (std::shared_ptr<Module> it : mModules)
 			{
-				output = it->GetValue(xoff, yoff, 0);
+				output += it->GetValue(xoff, yoff, 0);
 			}
 
-			mTerrainHandle->setHeight(x, y, 500 * output);
+			mTerrainHandle->setHeight(x, y, 200 * output);
             xoff += offsetIncrement * frequency;
         }
 

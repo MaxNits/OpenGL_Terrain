@@ -3,17 +3,17 @@
 using namespace noise::module;
 
 RidgedMulti::RidgedMulti()
-	: Module (GetSourceModuleCount ())
+	: Module (GetSourceModuleCount())
 	, m_frequency    (DEFAULT_RIDGED_FREQUENCY   )
 	, m_lacunarity   (DEFAULT_RIDGED_LACUNARITY  )
 	//, m_noiseQuality (DEFAULT_RIDGED_QUALITY     )
 	, m_octaveCount  (DEFAULT_RIDGED_OCTAVE_COUNT)
 	, m_seed         (DEFAULT_RIDGED_SEED)
 {
-	CalcSpectralWeights ();
+	CalcSpectralWeights();
 }
 
-void RidgedMulti::CalcSpectralWeights ()
+void RidgedMulti::CalcSpectralWeights()
 {
 	double h = 1.0; // This exponent parameter should be user-defined
 	double frequency = 1.0;
@@ -21,7 +21,7 @@ void RidgedMulti::CalcSpectralWeights ()
 	for (int i = 0; i < RIDGED_MAX_OCTAVE; i++) 
 	{
 		// Compute weight for each frequency.
-		m_pSpectralWeights[i] = pow (frequency, -h);
+		m_pSpectralWeights[i] = pow(frequency, -h);
 		frequency *= m_lacunarity;
 	}
 }
@@ -45,17 +45,17 @@ double RidgedMulti::GetValue(double x, double y, double z) const
 		// Make sure that these floating-point values have the same range as a 32-
 		// bit integer so that we can pass them to the coherent-noise functions.
 		double nx, ny, nz;
-		nx = MakeInt32Range (x);
-		ny = MakeInt32Range (y);
-		nz = MakeInt32Range (z);
+		nx = MakeInt32Range(x);
+		ny = MakeInt32Range(y);
+		nz = MakeInt32Range(z);
 		
 		// Get the coherent-noise value.
 		int seed = (m_seed + curOctave) & 0x7fffffff;
 		//signal = GradientCoherentNoise3D (nx, ny, nz, seed, m_noiseQuality);
-		signal = GradientCoherentNoise3D (nx, ny, nz, seed, DEFAULT_RIDGED_QUALITY);
+		signal = GradientCoherentNoise3D(nx, ny, nz, seed, DEFAULT_RIDGED_QUALITY);
 		
 		// Make the ridges.
-		signal = fabs (signal);
+		signal = fabs(signal);
 		signal = offset - signal;
 		
 		// Square the signal to increase the sharpness of the ridges.

@@ -18,24 +18,31 @@ const int RIDGED_MAX_OCTAVE = 30;
 class RidgedMulti: public Module
 {
 public:
-    RidgedMulti ();
+    RidgedMulti();
 
-    double GetFrequency () const
+	virtual int GetSourceModuleCount() const override
+	{ 
+		return 0;
+	}
+
+    virtual double GetValue(double x, double y, double z) const override;
+
+    double GetFrequency() const
     {
 		return m_frequency;
     }
 
-    double GetLacunarity () const
+    double GetLacunarity() const
     {
 		return m_lacunarity;
     }
 
-    /*noise::NoiseQuality GetNoiseQuality () const
+    /*noise::NoiseQuality GetNoiseQuality() const
     {
 		return m_noiseQuality;
     }*/
 
-    int GetOctaveCount () const
+    int GetOctaveCount() const
     {
 		return m_octaveCount;
     }
@@ -45,19 +52,12 @@ public:
 		return m_seed;
     }
 
-    virtual int GetSourceModuleCount () const override
-    {
-		return 0;
-    }
-
-    virtual double GetValue (double x, double y, double z) const override;
-
     void SetFrequency (double frequency)
     {
 		m_frequency = frequency;
     }
 
-    void SetLacunarity (double lacunarity) 
+    void SetLacunarity(double lacunarity) 
 	{
 		// For best results, set the lacunarity to a number between 1.5 and 3.5
 		m_lacunarity = lacunarity; 
@@ -70,7 +70,7 @@ public:
 		m_noiseQuality = noiseQuality;
     }*/
 
-    void SetOctaveCount (int octaveCount)
+    void SetOctaveCount(int octaveCount)
     {
 		if (octaveCount > RIDGED_MAX_OCTAVE) 
 		{
@@ -86,7 +86,7 @@ public:
     }
 
 protected:
-    void CalcSpectralWeights ();
+    void CalcSpectralWeights();
 
     double m_frequency;
     double m_lacunarity;
