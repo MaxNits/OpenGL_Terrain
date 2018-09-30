@@ -13,8 +13,8 @@ constexpr float SCALE = 7.0f;
 constexpr float CAMERA_VIEW_ANGLE = 20.0f;
 
 float gAngle = 60.0f;
-float gTerrainColor[] = {0.85f, 0.85f, 0.85f};
-float gBackgroundColor[] = { 0.1, 0.1, 0.1, 1.0 };
+float gTerrainColor[] = {0.8f, 0.8f, 0.8f};
+float gBackgroundColor[] = { 0.2, 0.2, 0.25, 1.0 };
 
 std::shared_ptr<TerrainGenerator> gTerrainGenerator;
 

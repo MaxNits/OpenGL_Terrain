@@ -2,6 +2,7 @@
 #include "ImageLoader.h"
 #include "Perlin.h"
 #include "RidgedMulti.h"
+#include "Terrace.h"
 #include "TerrainGenerator.h"
 #include "TerrainHandle.h"
 
@@ -19,27 +20,29 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     mTerrainHandle = std::make_shared<TerrainHandle>(mWidth, mHeight);
 
 	std::shared_ptr<Perlin> perlinModule = std::make_shared<Perlin>();
-	perlinModule->SetFrequency(1.0);
-    perlinModule->SetLacunarity(5.0);
-    perlinModule->SetOctaveCount(3);
+	perlinModule->SetFrequency(2.0);
+    perlinModule->SetLacunarity(3.0);
+    perlinModule->SetOctaveCount(7);
     perlinModule->SetPersistence(0.3);
-
     mModules.push_back(perlinModule);
 
 	std::shared_ptr<RidgedMulti> ridgedModule = std::make_shared<RidgedMulti>();
     ridgedModule->SetFrequency(2.0);
     ridgedModule->SetLacunarity(3.0);
     ridgedModule->SetOctaveCount(10);
-
-    mModules.push_back(ridgedModule);
+    //mModules.push_back(ridgedModule);
 
 	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
     billowModule->SetFrequency(2.0);
     billowModule->SetLacunarity(3.5);
     billowModule->SetOctaveCount(10);
     billowModule->SetPersistence(0.2);
+    //mModules.push_back(billowModule);
 
-    mModules.push_back(billowModule);
+	std::shared_ptr<Terrace> terraceModule = std::make_shared<Terrace>();
+	terraceModule->SetSourceModule(0, *perlinModule);
+	terraceModule->MakeControlPoints(10);
+	mModules.push_back(terraceModule);
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
@@ -64,7 +67,7 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filenam
 std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
 {
     float frequency = 3; // hills frequency
-    float offsetIncrement = 0.0001;
+    float offsetIncrement = 0.0001f;
     float xoff = 0; // Perlin noise needs values between 0 and 1
     float yoff = 0; // That's why we feed it small incremental values for our [x,y] matrix
 
@@ -78,10 +81,10 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
 			
 			for (std::shared_ptr<Module> it : mModules)
 			{
-				output += it->GetValue(xoff, yoff, 0);
+				output += (float)it->GetValue(xoff, yoff, 0);
 			}
 
-			mTerrainHandle->setHeight(x, y, 200 * output);
+			mTerrainHandle->setHeight(x, y, 300.f * output);
             xoff += offsetIncrement * frequency;
         }
 
