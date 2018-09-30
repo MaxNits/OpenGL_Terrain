@@ -43,7 +43,7 @@ private:
 	}
 };
 
-}
-}
+} // namespace module
+} // namespace noise
 
 #endif

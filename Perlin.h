@@ -8,25 +8,12 @@ namespace noise
 namespace module
 {
 
-/// Default frequency for the noise::module::Perlin noise module.
 const double DEFAULT_PERLIN_FREQUENCY = 1.0;
-
-/// Default lacunarity for the noise::module::Perlin noise module.
 const double DEFAULT_PERLIN_LACUNARITY = 2.0;
-
-/// Default number of octaves for the noise::module::Perlin noise module.
 const int DEFAULT_PERLIN_OCTAVE_COUNT = 6;
-
-/// Default persistence value for the noise::module::Perlin noise module.
 const double DEFAULT_PERLIN_PERSISTENCE = 0.5;
-
-/// Default noise quality for the noise::module::Perlin noise module.
 const noise::NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
-
-/// Default noise seed for the noise::module::Perlin noise module.
 const int DEFAULT_PERLIN_SEED = 0;
-
-/// Maximum number of octaves for the noise::module::Perlin noise module.
 const int PERLIN_MAX_OCTAVE = 30;
 
 class Perlin: public Module
@@ -120,7 +107,7 @@ protected:
     int m_seed;
 };
 
-}
-}
+} // namespace module
+} // namespace noise
 
 #endif

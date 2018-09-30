@@ -2,15 +2,13 @@
 #include "TerrainHandle.h"
 #include "ImageLoader.h"
 #include "PerlinDevice.h"
-#include "RidgedDevice.h"
+#include "RidgedMulti.h"
 #include "Perlin.h"
 
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <iterator>
-
-constexpr auto HEIGHT_SHIFT = 0.5f;
 
 using namespace noise::module;
 
@@ -26,7 +24,14 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     perlinModule->SetOctaveCount(10);
     perlinModule->SetPersistence(0.3);
 
-    mModules.push_back(perlinModule);
+    //mModules.push_back(perlinModule);
+
+	std::shared_ptr<RidgedMulti> ridgedModule = std::make_shared<RidgedMulti>();
+    ridgedModule->SetFrequency(2.0);
+    ridgedModule->SetLacunarity(3.0);
+    ridgedModule->SetOctaveCount(10);
+
+    mModules.push_back(ridgedModule);
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)

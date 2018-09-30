@@ -110,7 +110,7 @@ int main(int argc, char** argv)
     glutCreateWindow("Terrain Mesh Practice");
     initRendering();
 
-    gTerrainGenerator = std::make_shared<TerrainGenerator>(500, 500);
+    gTerrainGenerator = std::make_shared<TerrainGenerator>(1000, 1000);
     gTerrainGenerator->generateTerrain();
 
     glutDisplayFunc(drawScene);
