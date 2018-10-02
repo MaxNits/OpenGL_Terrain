@@ -8,6 +8,7 @@
 #include "Terrace.h"
 #include "TerrainGenerator.h"
 #include "TerrainHandle.h"
+#include "Voronoi.h"
 
 #include <iostream>
 #include <iterator>
@@ -33,7 +34,7 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     ridgedModule->SetFrequency(2.0);
     ridgedModule->SetLacunarity(3.0);
     ridgedModule->SetOctaveCount(10);
-    mModules.push_back(ridgedModule);
+    //mModules.push_back(ridgedModule);
 
 	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
     billowModule->SetFrequency(2.0);
@@ -41,6 +42,13 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     billowModule->SetOctaveCount(10);
     billowModule->SetPersistence(0.2);
 	//mModules.push_back(billowModule);
+
+	std::shared_ptr<Voronoi> voronoiModule = std::make_shared<Voronoi>();
+	//voronoiModule->SetDisplacement(1.0);
+	//voronoiModule->SetFrequency(2.0);
+	//voronoiModule->SetSeed(20);
+	mModules.push_back(voronoiModule);
+
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
@@ -77,12 +85,12 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
         {
 			float output = 0.f;
 
-			output = mModules[1]->GetValue(xoff, yoff, 0);
+			//output = mModules[0]->GetValue(xoff, yoff, 0);
 
-			/*for (std::shared_ptr<Module> it : mModules)
+			for (std::shared_ptr<Module> it : mModules)
 			{
 				output += (float)it->GetValue(xoff, yoff, 0);
-			}*/
+			}
 
 			mTerrainHandle->setHeight(x, y, 300.f * output);
             xoff += offsetIncrement * frequency;
