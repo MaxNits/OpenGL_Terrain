@@ -1,4 +1,5 @@
 #include "Billow.h"
+#include "CurveMapper.h"
 #include "ExponentMapper.h"
 #include "ImageLoader.h"
 #include "Invert.h"
@@ -39,12 +40,7 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     billowModule->SetLacunarity(3.5);
     billowModule->SetOctaveCount(10);
     billowModule->SetPersistence(0.2);
-    //mModules.push_back(billowModule);
-
-	std::shared_ptr<ExponentMapper> exponentModule = std::make_shared<ExponentMapper>();
-	exponentModule->SetExponent(3.0);
-	exponentModule->SetSourceModule(0, *ridgedModule);
-	mModules.push_back(exponentModule);
+	//mModules.push_back(billowModule);
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
@@ -81,7 +77,7 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
         {
 			float output = 0.f;
 
-			output = mModules[0]->GetValue(xoff, yoff, 0);
+			output = mModules[1]->GetValue(xoff, yoff, 0);
 
 			/*for (std::shared_ptr<Module> it : mModules)
 			{

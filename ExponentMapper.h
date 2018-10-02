@@ -24,7 +24,7 @@ public:
     void SetExponent(double exponent);
 
 protected:
-    double m_exponent;
+    double mExponent;
 };
 
 } // namespace module
