@@ -7,7 +7,7 @@ Module::Module(int sourceModuleCount)
 	mSourceModule = NULL;
 
 	// Create an array of pointers to all source modules required by this
-	// noise module.  Set these pointers to NULL.
+	// noise module. Set these pointers to NULL.
 	if (sourceModuleCount > 0)
 	{
 		mSourceModule = new const Module*[sourceModuleCount];

@@ -1,5 +1,7 @@
 #include "Billow.h"
+#include "ExponentMapper.h"
 #include "ImageLoader.h"
+#include "Invert.h"
 #include "Perlin.h"
 #include "RidgedMulti.h"
 #include "Terrace.h"
@@ -24,13 +26,13 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     perlinModule->SetLacunarity(3.0);
     perlinModule->SetOctaveCount(7);
     perlinModule->SetPersistence(0.3);
-    mModules.push_back(perlinModule);
+    //mModules.push_back(perlinModule);
 
 	std::shared_ptr<RidgedMulti> ridgedModule = std::make_shared<RidgedMulti>();
     ridgedModule->SetFrequency(2.0);
     ridgedModule->SetLacunarity(3.0);
     ridgedModule->SetOctaveCount(10);
-    //mModules.push_back(ridgedModule);
+    mModules.push_back(ridgedModule);
 
 	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
     billowModule->SetFrequency(2.0);
@@ -39,10 +41,10 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     billowModule->SetPersistence(0.2);
     //mModules.push_back(billowModule);
 
-	std::shared_ptr<Terrace> terraceModule = std::make_shared<Terrace>();
-	terraceModule->SetSourceModule(0, *perlinModule);
-	terraceModule->MakeControlPoints(10);
-	mModules.push_back(terraceModule);
+	std::shared_ptr<ExponentMapper> exponentModule = std::make_shared<ExponentMapper>();
+	exponentModule->SetExponent(3.0);
+	exponentModule->SetSourceModule(0, *ridgedModule);
+	mModules.push_back(exponentModule);
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::loadTerrain(const char* filename, float height)
@@ -78,11 +80,13 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
         for (float x = 0; x < mWidth; x++)
         {
 			float output = 0.f;
-			
-			for (std::shared_ptr<Module> it : mModules)
+
+			output = mModules[0]->GetValue(xoff, yoff, 0);
+
+			/*for (std::shared_ptr<Module> it : mModules)
 			{
 				output += (float)it->GetValue(xoff, yoff, 0);
-			}
+			}*/
 
 			mTerrainHandle->setHeight(x, y, 300.f * output);
             xoff += offsetIncrement * frequency;
