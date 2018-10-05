@@ -58,16 +58,14 @@ TerrainGenerator::TerrainGenerator(float width, float height)
 	blendSelectorModule->SetControlModule(*voronoiModule);
 	//mModules.push_back(blendSelectorModule);
 
-	std::shared_ptr<Spheres> spheresModule = std::make_shared<Spheres>();
-	spheresModule->SetFrequency(50);
-	mModules.push_back(spheresModule);
-
 }
 
 std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
 {
-    float frequency = 3; // hills frequency
-    float offsetIncrement = 0.0001f;
+	float xFrequency = 1;
+	float yFrequency = 1;
+	float xOffsetIncrement = 1 / mHeight;
+	float yOffsetIncrement = 1 / mWidth;
     float xoff = 0; // Perlin noise needs values between 0 and 1
     float yoff = 0; // That's why we feed it small incremental values for our [x,y] matrix
 
@@ -87,10 +85,10 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
 			}*/
 
 			mTerrainHandle->setHeight(x, y, 20.f * output);
-            xoff += offsetIncrement * frequency;
+            xoff += xOffsetIncrement * xFrequency;
         }
 
-        yoff += offsetIncrement * frequency;
+        yoff += yOffsetIncrement * yFrequency;
     }
 
     mTerrainHandle->computeNormals();

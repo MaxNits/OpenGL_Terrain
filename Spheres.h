@@ -8,10 +8,24 @@ namespace noise
 namespace module
 {
 
+struct SperesCenter
+{
+	SperesCenter(double _x, double _y, double _z)
+		: x(_x)
+		, y(_y)
+		, z(_z)
+	{
+	}
+
+	double x;
+	double y;
+	double z;
+};
+
 class Spheres: public Module
 {
 public:
-    Spheres();
+	Spheres();
 
 	virtual int GetSourceModuleCount() const override;
 
@@ -21,8 +35,11 @@ public:
 
     void SetFrequency(double frequency);
 
+	void SetSpheresCenter(double x, double y, double z);
+
 protected:
     double mFrequency;
+	SperesCenter mSpheresCenter;
 };
 
 } // namespace module
