@@ -10,7 +10,7 @@
 #include <memory>
 
 constexpr float SCALE = 7.0f;
-constexpr float CAMERA_VIEW_ANGLE = 45.0f;
+constexpr float CAMERA_VIEW_ANGLE = 20.0f;
 
 float gAngle = 60.0f;
 float gTerrainColor[] = {0.8f, 0.8f, 0.8f};
