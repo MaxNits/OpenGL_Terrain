@@ -14,17 +14,24 @@ class Checkerboard: public Module
 public:
     Checkerboard();
 
-    virtual int GetSourceModuleCount () const override;
+    virtual int GetSourceModuleCount() const override;
 
-    virtual double GetValue (double x, double y, double z) const override;
+    virtual double GetValue(double x, double y, double z) const override;
 
-	void setMinValue(unsigned value);
+	virtual double GetValueCustom(double x, double y, double z, unsigned length) const;
 
-	void setMaxValue(unsigned value);
+	void setMinValue(double value);
+
+	void setMaxValue(double value);
+
+	void setFrequency(unsigned value);
 
 private:
-	unsigned mMinValue;
-	unsigned mMaxValue;
+	bool isOdd(unsigned value) const;
+
+	double mMinValue;
+	double mMaxValue;
+	unsigned mFrequency;
 };
 
 }

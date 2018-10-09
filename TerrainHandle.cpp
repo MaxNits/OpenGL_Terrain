@@ -10,13 +10,13 @@ TerrainHandle::TerrainHandle(unsigned width, unsigned length)
     , mNormalsComputed(false)
 {
     mHeights = new float*[length];
-    for (int i = 0; i < length; i++)
+    for (unsigned i = 0; i < length; i++)
     {
         mHeights[i] = new float[width];
     }
 
     mNormals = new Vec3f*[length];
-    for (int i = 0; i < length; i++)
+    for (unsigned i = 0; i < length; i++)
     {
         mNormals[i] = new Vec3f[width];
     }
@@ -24,13 +24,13 @@ TerrainHandle::TerrainHandle(unsigned width, unsigned length)
 
 TerrainHandle::~TerrainHandle()
 {
-    for (int i = 0; i < mTerrainLength; i++)
+    for (unsigned i = 0; i < mTerrainLength; i++)
     {
         delete[] mHeights[i];
     }
     delete[] mHeights;
 
-    for (int i = 0; i < mTerrainLength; i++)
+    for (unsigned i = 0; i < mTerrainLength; i++)
     {
         delete[] mNormals[i];
     }
@@ -68,14 +68,14 @@ void TerrainHandle::computeNormals()
 
     // Compute the rough version of the normals
     Vec3f** normals_temp = new Vec3f*[mTerrainLength];
-    for (int i = 0; i < mTerrainLength; i++)
+    for (unsigned i = 0; i < mTerrainLength; i++)
     {
         normals_temp[i] = new Vec3f[mTerrainWidth];
     }
 
-    for (int z = 0; z < mTerrainLength; z++)
+    for (unsigned z = 0; z < mTerrainLength; z++)
     {
-        for (int x = 0; x < mTerrainWidth; x++)
+        for (unsigned x = 0; x < mTerrainWidth; x++)
         {
             Vec3f sum(0.0f, 0.0f, 0.0f);
 
@@ -126,9 +126,9 @@ void TerrainHandle::computeNormals()
 
     // Smooth out the normals
     const float FALLOUT_RATIO = 0.5f;
-    for (int z = 0; z < mTerrainLength; z++)
+    for (unsigned z = 0; z < mTerrainLength; z++)
     {
-        for (int x = 0; x < mTerrainWidth; x++)
+        for (unsigned x = 0; x < mTerrainWidth; x++)
         {
             Vec3f sum = normals_temp[z][x];
 
@@ -158,7 +158,7 @@ void TerrainHandle::computeNormals()
         }
     }
 
-    for (int i = 0; i < mTerrainLength; i++) {
+    for (unsigned i = 0; i < mTerrainLength; i++) {
         delete[] normals_temp[i];
     }
     delete[] normals_temp;
