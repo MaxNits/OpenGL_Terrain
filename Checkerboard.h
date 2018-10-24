@@ -18,7 +18,7 @@ public:
 
     virtual double GetValue(double x, double y, double z) const override;
 
-	virtual double GetValueCustom(double x, double y, double z, unsigned length) const;
+	virtual double GetValueCustom(double x, double y, double z, unsigned frequency, unsigned length) const;
 
 	void setMinValue(double value);
 
@@ -26,12 +26,15 @@ public:
 
 	void setFrequency(unsigned value);
 
+	void setCoordsFactor(unsigned value);
+
 private:
 	bool isOdd(unsigned value) const;
 
 	double mMinValue;
 	double mMaxValue;
 	unsigned mFrequency;
+	unsigned mCoordsFactor;
 };
 
 }

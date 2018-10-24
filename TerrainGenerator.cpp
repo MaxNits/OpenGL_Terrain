@@ -37,14 +37,14 @@ TerrainGenerator::TerrainGenerator(float width, float height)
     ridgedModule->SetFrequency(2.0);
     ridgedModule->SetLacunarity(3.0);
     ridgedModule->SetOctaveCount(10);
-    //mModules.push_back(ridgedModule);
+    mModules.push_back(ridgedModule);
 
 	std::shared_ptr<Billow> billowModule = std::make_shared<Billow>();
     billowModule->SetFrequency(2.0);
     billowModule->SetLacunarity(3.5);
     billowModule->SetOctaveCount(10);
     billowModule->SetPersistence(0.2);
-	//mModules.push_back(billowModule);
+	mModules.push_back(billowModule);
 
 	std::shared_ptr<Voronoi> voronoiModule = std::make_shared<Voronoi>();
 	voronoiModule->SetDisplacement(0.0);
@@ -57,13 +57,14 @@ TerrainGenerator::TerrainGenerator(float width, float height)
 	checkerboardModule->setMinValue(-1.0);
 	checkerboardModule->setMaxValue(1.0);
 	checkerboardModule->setFrequency(200);
+	checkerboardModule->setCoordsFactor(mHeight);
 	mModules.push_back(checkerboardModule);
 
 	std::shared_ptr<BlendSelector> blendSelectorModule = std::make_shared<BlendSelector>();
 	blendSelectorModule->SetSourceModule(0, *ridgedModule);
 	blendSelectorModule->SetSourceModule(1, *billowModule);
-	blendSelectorModule->SetControlModule(*voronoiModule);
-	//mModules.push_back(blendSelectorModule);
+	blendSelectorModule->SetControlModule(*checkerboardModule);
+	mModules.push_back(blendSelectorModule);
 
 }
 
@@ -84,14 +85,14 @@ std::shared_ptr<TerrainHandle> TerrainGenerator::generateTerrain()
         {
 			double output = 0.0;
 
-			output = mModules[0]->GetValue(x, y, 0);
+			output = mModules[3]->GetValue(xoff, yoff, 0);
 
 			/*for (std::shared_ptr<Module> it : mModules)
 			{
 				output += (float)it->GetValue(xoff, yoff, 0);
 			}*/
 
-			mTerrainHandle->setHeight(x, y, 10.f * output);
+			mTerrainHandle->setHeight(x, y, 200.f * output);
             xoff += xOffsetIncrement * xFrequency;
         }
 
