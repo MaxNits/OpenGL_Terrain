@@ -17,25 +17,25 @@ class Voronoi: public Module
 public:
     Voronoi ();
 
-	virtual int GetSourceModuleCount() const override;
+	virtual int getSourceModuleCount() const override;
 
-	virtual double GetValue(double x, double y, double z) const override;
+	virtual double getValue(double x, double y, double z) const override;
 	
-	void EnableDistance(bool enable = true);
+	void enableDistance(bool enable = true);
 
     double GetDisplacement() const;
 	
-	double GetFrequency() const;
+	double getFrequency() const;
 
-    int GetSeed() const;
+    int getSeed() const;
 
     bool IsDistanceEnabled() const;
     
-    void SetDisplacement(double displacement);
+    void setDisplacement(double displacement);
 
-    void SetFrequency(double frequency);
+    void setFrequency(double frequency);
 
-    void SetSeed(int seed);
+    void setSeed(int seed);
 
 protected:
     double m_displacement;

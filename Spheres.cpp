@@ -7,13 +7,13 @@ using namespace noise::module;
 const double DEFAULT_SPHERES_FREQUENCY = 1.0;
 
 Spheres::Spheres()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 	, mFrequency(DEFAULT_SPHERES_FREQUENCY)
 	, mSpheresCenter(0.0, 0.0, 0.0)
 {
 }
 
-double Spheres::GetValue(double x, double y, double z) const
+double Spheres::getValue(double x, double y, double z) const
 {
 	x *= mFrequency;
 	y *= mFrequency;
@@ -28,22 +28,22 @@ double Spheres::GetValue(double x, double y, double z) const
 	return 1.0 - (nearestDist * 4.0); // Puts it in the -1.0 to +1.0 range.
 }
 
-double Spheres::GetFrequency() const
+double Spheres::getFrequency() const
 {
 	return mFrequency;
 }
 
-int Spheres::GetSourceModuleCount() const
+int Spheres::getSourceModuleCount() const
 {
 	return 0;
 }
 
-void Spheres::SetFrequency(double frequency)
+void Spheres::setFrequency(double frequency)
 {
 	mFrequency = frequency;
 }
 
-void Spheres::SetSpheresCenter(double x, double y, double z)
+void Spheres::setSpheresCenter(double x, double y, double z)
 {
 	mSpheresCenter.x = x;
 	mSpheresCenter.y = y;

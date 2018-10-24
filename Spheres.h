@@ -27,15 +27,15 @@ class Spheres: public Module
 public:
 	Spheres();
 
-	virtual int GetSourceModuleCount() const override;
+	virtual int getSourceModuleCount() const override;
 
-	virtual double GetValue(double x, double y, double z) const override;
+	virtual double getValue(double x, double y, double z) const override;
 	
-	double GetFrequency() const;
+	double getFrequency() const;
 
-    void SetFrequency(double frequency);
+    void setFrequency(double frequency);
 
-	void SetSpheresCenter(double x, double y, double z);
+	void setSpheresCenter(double x, double y, double z);
 
 protected:
     double mFrequency;

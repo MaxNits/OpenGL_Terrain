@@ -13,13 +13,13 @@ class BlendSelector: public Module
 public:
     BlendSelector();
 
-	virtual int GetSourceModuleCount() const override;
+	virtual int getSourceModuleCount() const override;
 
-	virtual double GetValue(double x, double y, double z) const override;
+	virtual double getValue(double x, double y, double z) const override;
 
 	const Module& GetControlModule() const;
 
-    void SetControlModule(const Module& controlModule);
+    void setControlModule(const Module& controlModule);
 };
 
 } // namespace module

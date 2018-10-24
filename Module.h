@@ -21,13 +21,13 @@ public:
 
 	virtual ~Module();
 
-	virtual double GetValue(double x, double y, double z) const = 0;
+	virtual double getValue(double x, double y, double z) const = 0;
 
-	virtual int GetSourceModuleCount() const = 0;
+	virtual int getSourceModuleCount() const = 0;
 
-	virtual const Module& GetSourceModule(int index) const;
+	virtual const Module& getSourceModule(int index) const;
 
-	virtual void SetSourceModule(int index, const Module& sourceModule);
+	virtual void getSourceModule(int index, const Module& sourceModule);
 
 protected:
 	// An array containing the pointers to each source module required by this noise module.

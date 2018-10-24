@@ -17,7 +17,7 @@ double RangeSelector::getValue(double x, double y, double z) const
 	assert(mSourceModule[1] != NULL);
 	assert(mSourceModule[2] != NULL);
 
-	double controlValue = mSourceModule[2]->GetValue(x, y, z);
+	double controlValue = mSourceModule[2]->getValue(x, y, z);
 	double alpha;
 
 	if (mEdgeFalloff > 0.0)
@@ -26,7 +26,7 @@ double RangeSelector::getValue(double x, double y, double z) const
 		{
 		    // The output value from the control module is below the selector
 		    // threshold; return the output value from the first source module.
-		    return mSourceModule[0]->GetValue(x, y, z);
+		    return mSourceModule[0]->getValue(x, y, z);
 		} 
 		else if (controlValue < (mLowerBound + mEdgeFalloff))
 		{
@@ -36,13 +36,13 @@ double RangeSelector::getValue(double x, double y, double z) const
 			double lowerCurve = (mLowerBound - mEdgeFalloff);
 			double upperCurve = (mLowerBound + mEdgeFalloff);
 			alpha = SCurve3((controlValue - lowerCurve) / (upperCurve - lowerCurve));
-			return LinearInterp(mSourceModule[0]->GetValue(x, y, z), mSourceModule[1]->GetValue(x, y, z), alpha);
+			return LinearInterp(mSourceModule[0]->getValue(x, y, z), mSourceModule[1]->getValue(x, y, z), alpha);
 		}
 		else if (controlValue < (mUpperBound - mEdgeFalloff))
 		{
 			// The output value from the control module is within the selector
 			// threshold; return the output value from the second source module.
-			return mSourceModule[1]->GetValue(x, y, z);
+			return mSourceModule[1]->getValue(x, y, z);
 		}
 		else if (controlValue < (mUpperBound + mEdgeFalloff))
 		{
@@ -52,24 +52,24 @@ double RangeSelector::getValue(double x, double y, double z) const
 			double lowerCurve = (mUpperBound - mEdgeFalloff);
 			double upperCurve = (mUpperBound + mEdgeFalloff);
 			alpha = SCurve3((controlValue - lowerCurve) / (upperCurve - lowerCurve));
-			return LinearInterp(mSourceModule[1]->GetValue(x, y, z), mSourceModule[0]->GetValue(x, y, z), alpha);
+			return LinearInterp(mSourceModule[1]->getValue(x, y, z), mSourceModule[0]->getValue(x, y, z), alpha);
 		}
 		else
 		{
 			// Output value from the control module is above the selector threshold;
 			// return the output value from the first source module.
-			return mSourceModule[0]->GetValue(x, y, z);
+			return mSourceModule[0]->getValue(x, y, z);
 		}
 	}
 	else
 	{
 		if (controlValue < mLowerBound || controlValue > mUpperBound)
 		{
-			return mSourceModule[0]->GetValue(x, y, z);
+			return mSourceModule[0]->getValue(x, y, z);
 		}
 		else
 		{
-			return mSourceModule[1]->GetValue(x, y, z);
+			return mSourceModule[1]->getValue(x, y, z);
 		}
 	}
 }
@@ -92,7 +92,7 @@ void RangeSelector::setEdgeFalloff(double edgeFalloff)
 	mEdgeFalloff = (edgeFalloff > boundSize / 2)? boundSize / 2: edgeFalloff;
 }
 
-const noise::module::Module& noise::module::RangeSelector::getControlModule() const
+const noise::module::Module& RangeSelector::getControlModule() const
 {
 	if (mSourceModule == NULL || mSourceModule[2] == NULL) {
 		throw noise::ExceptionNoModule();
@@ -101,27 +101,27 @@ const noise::module::Module& noise::module::RangeSelector::getControlModule() co
 	return *(mSourceModule[2]);
 }
 
-double noise::module::RangeSelector::getEdgeFalloff() const
+double RangeSelector::getEdgeFalloff() const
 {
 	return mEdgeFalloff;
 }
 
-double noise::module::RangeSelector::getLowerBound() const
+double RangeSelector::getLowerBound() const
 {
 	return mLowerBound;
 }
 
-int noise::module::RangeSelector::getSourceModuleCount() const
+int RangeSelector::getSourceModuleCount() const
 {
 	return 3;
 }
 
-double noise::module::RangeSelector::getUpperBound() const
+double RangeSelector::getUpperBound() const
 {
 	return mUpperBound;
 }
 
-void noise::module::RangeSelector::setControlModule(const Module& controlModule)
+void RangeSelector::setControlModule(const Module& controlModule)
 {
 	assert(mSourceModule != NULL);
 	mSourceModule[2] = &controlModule;

@@ -20,29 +20,29 @@ class RidgedMulti: public Module
 public:
     RidgedMulti();
 
-	virtual int GetSourceModuleCount() const override;
+	virtual int getSourceModuleCount() const override;
 
-    virtual double GetValue(double x, double y, double z) const override;
+    virtual double getValue(double x, double y, double z) const override;
 
-    double GetFrequency() const;
+    double getFrequency() const;
 
-    double GetLacunarity() const;
+    double getLacunarity() const;
 
-    noise::NoiseQuality GetNoiseQuality() const;
+    noise::NoiseQuality getNoiseQuality() const;
 
-    int GetOctaveCount() const;
+    int getOctaveCount() const;
 
-    int GetSeed() const;
+    int getSeed() const;
 
-    void SetFrequency(double frequency);
+    void setFrequency(double frequency);
 
-    void SetLacunarity(double lacunarity);
+    void setLacunarity(double lacunarity);
 
-    void SetNoiseQuality(noise::NoiseQuality noiseQuality);
+    void setNoiseQuality(noise::NoiseQuality noiseQuality);
 
-    void SetOctaveCount(int octaveCount);
+    void setOctaveCount(int octaveCount);
 
-    void SetSeed(int seed);
+    void setSeed(int seed);
 
 protected:
     void CalcSpectralWeights();

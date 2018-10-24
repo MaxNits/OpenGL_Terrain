@@ -14,9 +14,9 @@ class Checkerboard: public Module
 public:
     Checkerboard();
 
-    virtual int GetSourceModuleCount() const override;
+    virtual int getSourceModuleCount() const override;
 
-    virtual double GetValue(double x, double y, double z) const override;
+    virtual double getValue(double x, double y, double z) const override;
 
 	virtual double GetValueCustom(double x, double y, double z, unsigned frequency, unsigned length) const;
 

@@ -21,13 +21,16 @@ int IntValueNoise3D(int x, int y, int z, int seed = 0);
 
 inline double MakeInt32Range(double n)
 {
-	if (n >= 1073741824.0) {
+	if (n >= 1073741824.0)
+	{
 		return (2.0 * fmod(n, 1073741824.0)) - 1073741824.0;
 	}
-	else if (n <= -1073741824.0) {
+	else if (n <= -1073741824.0)
+	{
 		return (2.0 * fmod(n, 1073741824.0)) + 1073741824.0;
 	}
-	else {
+	else
+	{
 		return n;
 	}
 }

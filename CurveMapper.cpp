@@ -5,7 +5,7 @@
 using namespace noise::module;
 
 CurveMapper::CurveMapper()
-	: Module(GetSourceModuleCount ())
+	: Module(getSourceModuleCount ())
 	, mControlPoints(NULL)
 {
 	mControlPointCount = 0;
@@ -55,13 +55,13 @@ int CurveMapper::FindInsertionPos(double inputValue)
 	return insertionPos;
 }
 
-double CurveMapper::GetValue(double x, double y, double z) const
+double CurveMapper::getValue(double x, double y, double z) const
 {
 	assert(mSourceModule[0] != NULL);
 	assert(mControlPointCount >= 4);
 
 	// Get the output value from the source module.
-	double sourceModuleValue = mSourceModule[0]->GetValue(x, y, z);
+	double sourceModuleValue = mSourceModule[0]->getValue(x, y, z);
 
 	// Find the first element in the control point array that has an input value
 	// larger than the output value from the source module.
@@ -143,7 +143,7 @@ int CurveMapper::GetControlPointCount() const
 	return mControlPointCount;
 }
 
-int CurveMapper::GetSourceModuleCount() const
+int CurveMapper::getSourceModuleCount() const
 {
 	return 1;
 }

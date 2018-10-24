@@ -3,7 +3,7 @@
 using namespace noise::module;
 
 RidgedMulti::RidgedMulti()
-	: Module (GetSourceModuleCount())
+	: Module (getSourceModuleCount())
 	, m_frequency    (DEFAULT_RIDGED_FREQUENCY   )
 	, m_lacunarity   (DEFAULT_RIDGED_LACUNARITY  )
 	, m_noiseQuality (DEFAULT_RIDGED_QUALITY     )
@@ -13,7 +13,7 @@ RidgedMulti::RidgedMulti()
 	CalcSpectralWeights();
 }
 
-int RidgedMulti::GetSourceModuleCount() const {
+int RidgedMulti::getSourceModuleCount() const {
   return 0;
 }
 
@@ -30,7 +30,7 @@ void RidgedMulti::CalcSpectralWeights()
 	}
 }
 
-double RidgedMulti::GetValue(double x, double y, double z) const
+double RidgedMulti::getValue(double x, double y, double z) const
 {
 	x *= m_frequency;
 	y *= m_frequency;
@@ -90,37 +90,37 @@ double RidgedMulti::GetValue(double x, double y, double z) const
 	return (value * 1.25) - 1.0;
 }
 
-double RidgedMulti::GetFrequency() const
+double RidgedMulti::getFrequency() const
 {
 	return m_frequency;
 }
 
-double RidgedMulti::GetLacunarity() const
+double RidgedMulti::getLacunarity() const
 {
 	return m_lacunarity;
 }
 
-noise::NoiseQuality RidgedMulti::GetNoiseQuality() const
+noise::NoiseQuality RidgedMulti::getNoiseQuality() const
 {
 	return m_noiseQuality;
 }
 
-int RidgedMulti::GetOctaveCount() const
+int RidgedMulti::getOctaveCount() const
 {
 	return m_octaveCount;
 }
 
-int RidgedMulti::GetSeed() const
+int RidgedMulti::getSeed() const
 { 
 	return m_seed;
 }
 
-void RidgedMulti::SetFrequency(double frequency)
+void RidgedMulti::setFrequency(double frequency)
 {
 	m_frequency = frequency;
 }
 
-void RidgedMulti::SetLacunarity(double lacunarity)
+void RidgedMulti::setLacunarity(double lacunarity)
 {
 	// For best results, set the lacunarity to a number between 1.5 and 3.5
 	m_lacunarity = lacunarity;
@@ -129,12 +129,12 @@ void RidgedMulti::SetLacunarity(double lacunarity)
 }
 
 void
-RidgedMulti::SetNoiseQuality(noise::NoiseQuality noiseQuality)
+RidgedMulti::setNoiseQuality(noise::NoiseQuality noiseQuality)
 {
 	m_noiseQuality = noiseQuality;
 }
 
-void RidgedMulti::SetOctaveCount(int octaveCount)
+void RidgedMulti::setOctaveCount(int octaveCount)
 {
 	if (octaveCount > RIDGED_MAX_OCTAVE)
 	{
@@ -144,7 +144,7 @@ void RidgedMulti::SetOctaveCount(int octaveCount)
 	m_octaveCount = octaveCount;
 }
 
-void RidgedMulti::SetSeed(int seed)
+void RidgedMulti::setSeed(int seed)
 { 
 	m_seed = seed;
 }

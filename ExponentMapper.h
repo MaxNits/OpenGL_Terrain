@@ -15,9 +15,9 @@ class ExponentMapper : public Module
 public:
 	ExponentMapper();
 
-	virtual int GetSourceModuleCount() const override;
+	virtual int getSourceModuleCount() const override;
 
-	virtual double GetValue(double x, double y, double z) const override;
+	virtual double getValue(double x, double y, double z) const override;
 
     double GetExponent() const;
 

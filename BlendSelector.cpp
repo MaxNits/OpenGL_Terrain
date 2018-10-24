@@ -4,19 +4,19 @@
 using namespace noise::module;
 
 BlendSelector::BlendSelector()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 {
 }
 
-double BlendSelector::GetValue(double x, double y, double z) const
+double BlendSelector::getValue(double x, double y, double z) const
 {
 	assert (m_pSourceModule[0] != NULL);
 	assert (m_pSourceModule[1] != NULL);
 	assert (m_pSourceModule[2] != NULL);
 	
-	double v0 = mSourceModule[0]->GetValue(x, y, z);
-	double v1 = mSourceModule[1]->GetValue(x, y, z);
-	double alpha = (mSourceModule[2]->GetValue(x, y, z) + 1.0) / 2.0;
+	double v0 = mSourceModule[0]->getValue(x, y, z);
+	double v1 = mSourceModule[1]->getValue(x, y, z);
+	double alpha = (mSourceModule[2]->getValue(x, y, z) + 1.0) / 2.0;
 	return LinearInterp(v0, v1, alpha);
 }
 
@@ -30,12 +30,12 @@ const Module& noise::module::BlendSelector::GetControlModule() const
 	return *(mSourceModule[2]);
 }
 
-int BlendSelector::GetSourceModuleCount() const
+int BlendSelector::getSourceModuleCount() const
 {
 	return 3;
 }
 
-void BlendSelector::SetControlModule(const Module& controlModule)
+void BlendSelector::setControlModule(const Module& controlModule)
 {
 	assert(mSourceModule != NULL);
 	mSourceModule[2] = &controlModule;

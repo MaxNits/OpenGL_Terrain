@@ -3,12 +3,12 @@
 using namespace noise::module;
 
 ExponentMapper::ExponentMapper()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 	, mExponent(DEFAULT_EXPONENT)
 {
 }
 
-double ExponentMapper::GetValue(double x, double y, double z) const
+double ExponentMapper::getValue(double x, double y, double z) const
 {
 	// Because most noise modules will output values that range from -1.0
 	// to +1.0, ExponentMapper first normalizes this output value (the
@@ -17,7 +17,7 @@ double ExponentMapper::GetValue(double x, double y, double z) const
 
 	assert (mSourceModule[0] != NULL);
 	
-	double value = mSourceModule[0]->GetValue(x, y, z);
+	double value = mSourceModule[0]->getValue(x, y, z);
 	return (pow(fabs((value + 1.0) / 2.0), mExponent) * 2.0 - 1.0);
 }
 
@@ -26,7 +26,7 @@ double ExponentMapper::GetExponent() const
 	return mExponent;
 }
 
-int ExponentMapper::GetSourceModuleCount() const
+int ExponentMapper::getSourceModuleCount() const
 {
 	return 1;
 }

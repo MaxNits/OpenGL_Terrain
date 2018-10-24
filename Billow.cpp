@@ -3,7 +3,7 @@
 using namespace noise::module;
 
 Billow::Billow()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 	, m_frequency    (DEFAULT_BILLOW_FREQUENCY   )
 	, m_lacunarity   (DEFAULT_BILLOW_LACUNARITY  )
 	, m_noiseQuality (DEFAULT_BILLOW_QUALITY     )
@@ -12,9 +12,9 @@ Billow::Billow()
 	, m_seed         (DEFAULT_BILLOW_SEED)
 {}
 
-int Billow::GetSourceModuleCount() const { return 0; }
+int Billow::getSourceModuleCount() const { return 0; }
 
-double Billow::GetValue(double x, double y, double z) const
+double Billow::getValue(double x, double y, double z) const
 {
 	double value = 0.0;
 	double signal = 0.0;
@@ -53,53 +53,53 @@ double Billow::GetValue(double x, double y, double z) const
 	return value;
 }
 
-double Billow::GetFrequency() const
+double Billow::getFrequency() const
 {
 	return m_frequency;
 }
 
-double Billow::GetLacunarity() const
+double Billow::getLacunarity() const
 {
 	return m_lacunarity;
 }
 
-noise::NoiseQuality Billow::GetNoiseQuality() const
+noise::NoiseQuality Billow::getNoiseQuality() const
 {
 	return m_noiseQuality;
 }
 
-int Billow::GetOctaveCount() const
+int Billow::getOctaveCount() const
 {
 	return m_octaveCount;
 }
 
-double Billow::GetPersistence() const
+double Billow::getPersistence() const
 {
 	return m_persistence;
 }
 
-int Billow::GetSeed() const
+int Billow::getSeed() const
 { 
 	return m_seed;
 }
 
-void Billow::SetFrequency(double frequency)
+void Billow::setFrequency(double frequency)
 {
 	m_frequency = frequency;
 }
 
-void Billow::SetLacunarity(double lacunarity)
+void Billow::setLacunarity(double lacunarity)
 {
 	// For best results, set the lacunarity to a number between 1.5 and 3.5
 	m_lacunarity = lacunarity;
 }
 
-void Billow::SetNoiseQuality(noise::NoiseQuality noiseQuality)
+void Billow::setNoiseQuality(noise::NoiseQuality noiseQuality)
 {
 	m_noiseQuality = noiseQuality;
 }
 
-void Billow::SetOctaveCount(int octaveCount)
+void Billow::setOctaveCount(int octaveCount)
 {
 	if (octaveCount < 1 || octaveCount > BILLOW_MAX_OCTAVE)
 	{
@@ -109,13 +109,13 @@ void Billow::SetOctaveCount(int octaveCount)
 	m_octaveCount = octaveCount;
 }
 
-void Billow::SetPersistence(double persistence)
+void Billow::setPersistence(double persistence)
 {
 	// For best results, set the persistence value to a number between 0.0 and 1.0
 	m_persistence = persistence;
 }
 
-void Billow::SetSeed(int seed)
+void Billow::setSeed(int seed)
 { 
 	m_seed = seed;
 }

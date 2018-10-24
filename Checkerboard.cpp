@@ -5,7 +5,7 @@ using namespace noise::module;
 constexpr double OUTPUT_FACTOR = 0.5;
 
 Checkerboard::Checkerboard()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 	, mMinValue(-1.0)
 	, mMaxValue(1.0)
 	, mFrequency(10)
@@ -13,7 +13,7 @@ Checkerboard::Checkerboard()
 {
 }
 
-double Checkerboard::GetValue(double x, double y, double z) const
+double Checkerboard::getValue(double x, double y, double z) const
 {
 	/*int ix = (int)(floor(MakeInt32Range(x)));
 	int iy = (int)(floor(MakeInt32Range(y)));
@@ -23,7 +23,7 @@ double Checkerboard::GetValue(double x, double y, double z) const
 	return GetValueCustom(x, y, z, mCoordsFactor, mFrequency);
 }
 
-int Checkerboard::GetSourceModuleCount() const
+int Checkerboard::getSourceModuleCount() const
 {
 	return 0;
 }

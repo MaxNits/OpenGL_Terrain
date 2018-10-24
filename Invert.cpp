@@ -3,18 +3,18 @@
 using namespace noise::module;
 
 Invert::Invert()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
 {
 }
 
-double Invert::GetValue(double x, double y, double z) const
+double Invert::getValue(double x, double y, double z) const
 {
 	assert (mSourceModule[0] != NULL);
 
-	return -(mSourceModule[0]->GetValue(x, y, z));
+	return -(mSourceModule[0]->getValue(x, y, z));
 }
 
-int Invert::GetSourceModuleCount() const
+int Invert::getSourceModuleCount() const
 {
 	return 1;
 }

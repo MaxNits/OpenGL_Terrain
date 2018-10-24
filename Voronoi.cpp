@@ -4,7 +4,7 @@
 using namespace noise::module;
 
 Voronoi::Voronoi()
-	: Module(GetSourceModuleCount())
+	: Module(getSourceModuleCount())
     , m_displacement(DEFAULT_VORONOI_DISPLACEMENT)
     , m_enableDistance(false)
     , m_frequency(DEFAULT_VORONOI_FREQUENCY)
@@ -12,7 +12,7 @@ Voronoi::Voronoi()
 {
 }
 
-double Voronoi::GetValue(double x, double y, double z) const
+double Voronoi::getValue(double x, double y, double z) const
 {
 	// This method could be more efficient by caching the seed values. Fix later.
 	
@@ -84,7 +84,7 @@ double Voronoi::GetValue(double x, double y, double z) const
 	  (int)(floor (zCandidate))));
 }
 
-void Voronoi::EnableDistance(bool enable /*= true*/)
+void Voronoi::enableDistance(bool enable /*= true*/)
 {
 	m_enableDistance = enable;
 }
@@ -94,17 +94,17 @@ double Voronoi::GetDisplacement() const
 	return m_displacement;
 }
 
-double Voronoi::GetFrequency() const
+double Voronoi::getFrequency() const
 {
 	return m_frequency;
 }
 
-int Voronoi::GetSourceModuleCount() const
+int Voronoi::getSourceModuleCount() const
 {
 	return 0;
 }
 
-int Voronoi::GetSeed() const
+int Voronoi::getSeed() const
 {
 	return m_seed;
 }
@@ -114,17 +114,17 @@ bool Voronoi::IsDistanceEnabled() const
 	return m_enableDistance;
 }
 
-void Voronoi::SetDisplacement(double displacement)
+void Voronoi::setDisplacement(double displacement)
 {
 	m_displacement = displacement;
 }
 
-void Voronoi::SetFrequency(double frequency)
+void Voronoi::setFrequency(double frequency)
 {
 	m_frequency = frequency;
 }
 
-void Voronoi::SetSeed(int seed)
+void Voronoi::setSeed(int seed)
 {
 	m_seed = seed;
 }

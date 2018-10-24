@@ -6,7 +6,7 @@ using namespace noise::module;
 using namespace noise;
 
 Terrace::Terrace()
-	:  Module (GetSourceModuleCount())
+	:  Module (getSourceModuleCount())
 	, m_controlPointCount (0)
 	, m_invertTerraces (false)
 	, m_pControlPoints (NULL)
@@ -56,13 +56,13 @@ int Terrace::FindInsertionPos(double value)
 	return insertionPos;
 }
 
-double Terrace::GetValue(double x, double y, double z) const
+double Terrace::getValue(double x, double y, double z) const
 {
 	assert (m_pSourceModule[0] != NULL);
 	assert (m_controlPointCount >= 2);
 
 	// Get the output value from the source module.
-	double sourceModuleValue = mSourceModule[0]->GetValue (x, y, z);
+	double sourceModuleValue = mSourceModule[0]->getValue (x, y, z);
 
 	// Find the first element in the control point array that has a value
 	// larger than the output value from the source module.
@@ -163,7 +163,7 @@ int Terrace::GetControlPointCount() const
 	return m_controlPointCount;
 }
 
-int Terrace::GetSourceModuleCount() const
+int Terrace::getSourceModuleCount() const
 {
 	return 1;
 }
