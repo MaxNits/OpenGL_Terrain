@@ -1,23 +1,24 @@
 #include "RidgedMulti.h"
 
+using namespace noise;
 using namespace noise::module;
 
 RidgedMulti::RidgedMulti()
 	: Module (getSourceModuleCount())
-	, m_frequency    (DEFAULT_RIDGED_FREQUENCY   )
-	, m_lacunarity   (DEFAULT_RIDGED_LACUNARITY  )
-	, m_noiseQuality (DEFAULT_RIDGED_QUALITY     )
-	, m_octaveCount  (DEFAULT_RIDGED_OCTAVE_COUNT)
-	, m_seed         (DEFAULT_RIDGED_SEED)
+	, mFrequency    (DEFAULT_RIDGED_FREQUENCY   )
+	, mLacunarity   (DEFAULT_RIDGED_LACUNARITY  )
+	, mNoiseQuality (DEFAULT_RIDGED_QUALITY     )
+	, mOctaveCount  (DEFAULT_RIDGED_OCTAVE_COUNT)
+	, mSeed         (DEFAULT_RIDGED_SEED)
 {
-	CalcSpectralWeights();
+	calcSpectralWeights();
 }
 
 int RidgedMulti::getSourceModuleCount() const {
   return 0;
 }
 
-void RidgedMulti::CalcSpectralWeights()
+void RidgedMulti::calcSpectralWeights()
 {
 	double h = 1.0; // This exponent parameter should be user-defined
 	double frequency = 1.0;
@@ -25,16 +26,16 @@ void RidgedMulti::CalcSpectralWeights()
 	for (int i = 0; i < RIDGED_MAX_OCTAVE; i++) 
 	{
 		// Compute weight for each frequency.
-		m_pSpectralWeights[i] = pow(frequency, -h);
-		frequency *= m_lacunarity;
+		mSpectralWeights[i] = pow(frequency, -h);
+		frequency *= mLacunarity;
 	}
 }
 
 double RidgedMulti::getValue(double x, double y, double z) const
 {
-	x *= m_frequency;
-	y *= m_frequency;
-	z *= m_frequency;
+	x *= mFrequency;
+	y *= mFrequency;
+	z *= mFrequency;
 	
 	double signal = 0.0;
 	double value  = 0.0;
@@ -44,7 +45,7 @@ double RidgedMulti::getValue(double x, double y, double z) const
 	double offset = 1.0;
 	double gain = 2.0;
 	
-	for (int curOctave = 0; curOctave < m_octaveCount; curOctave++) 
+	for (int curOctave = 0; curOctave < mOctaveCount; curOctave++) 
 	{
 		// Make sure that these floating-point values have the same range as a 32-
 		// bit integer so that we can pass them to the coherent-noise functions.
@@ -54,8 +55,8 @@ double RidgedMulti::getValue(double x, double y, double z) const
 		nz = MakeInt32Range(z);
 		
 		// Get the coherent-noise value.
-		int seed = (m_seed + curOctave) & 0x7fffffff;
-		signal = GradientCoherentNoise3D (nx, ny, nz, seed, m_noiseQuality);
+		int seed = (mSeed + curOctave) & 0x7fffffff;
+		signal = GradientCoherentNoise3D (nx, ny, nz, seed, mNoiseQuality);
 		
 		// Make the ridges.
 		signal = fabs(signal);
@@ -79,12 +80,12 @@ double RidgedMulti::getValue(double x, double y, double z) const
 		}
 		
 		// Add the signal to the output value.
-		value += (signal * m_pSpectralWeights[curOctave]);
+		value += (signal * mSpectralWeights[curOctave]);
 		
 		// Go to the next octave.
-		x *= m_lacunarity;
-		y *= m_lacunarity;
-		z *= m_lacunarity;
+		x *= mLacunarity;
+		y *= mLacunarity;
+		z *= mLacunarity;
 	}
 	
 	return (value * 1.25) - 1.0;
@@ -92,46 +93,46 @@ double RidgedMulti::getValue(double x, double y, double z) const
 
 double RidgedMulti::getFrequency() const
 {
-	return m_frequency;
+	return mFrequency;
 }
 
 double RidgedMulti::getLacunarity() const
 {
-	return m_lacunarity;
+	return mLacunarity;
 }
 
-noise::NoiseQuality RidgedMulti::getNoiseQuality() const
+NoiseQuality RidgedMulti::getNoiseQuality() const
 {
-	return m_noiseQuality;
+	return mNoiseQuality;
 }
 
 int RidgedMulti::getOctaveCount() const
 {
-	return m_octaveCount;
+	return mOctaveCount;
 }
 
 int RidgedMulti::getSeed() const
 { 
-	return m_seed;
+	return mSeed;
 }
 
 void RidgedMulti::setFrequency(double frequency)
 {
-	m_frequency = frequency;
+	mFrequency = frequency;
 }
 
 void RidgedMulti::setLacunarity(double lacunarity)
 {
 	// For best results, set the lacunarity to a number between 1.5 and 3.5
-	m_lacunarity = lacunarity;
+	mLacunarity = lacunarity;
 
-	CalcSpectralWeights();
+	calcSpectralWeights();
 }
 
 void
-RidgedMulti::setNoiseQuality(noise::NoiseQuality noiseQuality)
+RidgedMulti::setNoiseQuality(NoiseQuality noiseQuality)
 {
-	m_noiseQuality = noiseQuality;
+	mNoiseQuality = noiseQuality;
 }
 
 void RidgedMulti::setOctaveCount(int octaveCount)
@@ -141,10 +142,10 @@ void RidgedMulti::setOctaveCount(int octaveCount)
 	  throw noise::ExceptionInvalidParam();
 	}
 
-	m_octaveCount = octaveCount;
+	mOctaveCount = octaveCount;
 }
 
 void RidgedMulti::setSeed(int seed)
 { 
-	m_seed = seed;
+	mSeed = seed;
 }

@@ -1,15 +1,16 @@
 #include "Billow.h"
 
+using namespace noise;
 using namespace noise::module;
 
 Billow::Billow()
 	: Module(getSourceModuleCount())
-	, m_frequency    (DEFAULT_BILLOW_FREQUENCY   )
-	, m_lacunarity   (DEFAULT_BILLOW_LACUNARITY  )
-	, m_noiseQuality (DEFAULT_BILLOW_QUALITY     )
-	, m_octaveCount  (DEFAULT_BILLOW_OCTAVE_COUNT)
-	, m_persistence  (DEFAULT_BILLOW_PERSISTENCE )
-	, m_seed         (DEFAULT_BILLOW_SEED)
+	, mFrequency    (DEFAULT_BILLOW_FREQUENCY   )
+	, mLacunarity   (DEFAULT_BILLOW_LACUNARITY  )
+	, mNoiseQuality (DEFAULT_BILLOW_QUALITY     )
+	, mOctaveCount  (DEFAULT_BILLOW_OCTAVE_COUNT)
+	, mPersistence  (DEFAULT_BILLOW_PERSISTENCE )
+	, mSeed         (DEFAULT_BILLOW_SEED)
 {}
 
 int Billow::getSourceModuleCount() const { return 0; }
@@ -22,11 +23,11 @@ double Billow::getValue(double x, double y, double z) const
 	double nx, ny, nz;
 	int seed;
 
-	x *= m_frequency;
-	y *= m_frequency;
-	z *= m_frequency;
+	x *= mFrequency;
+	y *= mFrequency;
+	z *= mFrequency;
 
-	for (int curOctave = 0; curOctave < m_octaveCount; curOctave++) 
+	for (int curOctave = 0; curOctave < mOctaveCount; curOctave++) 
 	{
 		// Make sure that these floating-point values have the same range as a 32-
 		// bit integer so that we can pass them to the coherent-noise functions.
@@ -36,16 +37,16 @@ double Billow::getValue(double x, double y, double z) const
 
 		// Get the coherent-noise value from the input value and add it to the
 		// final result.
-		seed = (m_seed + curOctave) & 0xffffffff;
-		signal = GradientCoherentNoise3D(nx, ny, nz, seed, m_noiseQuality);
+		seed = (mSeed + curOctave) & 0xffffffff;
+		signal = GradientCoherentNoise3D(nx, ny, nz, seed, mNoiseQuality);
 		signal = 2.0 * fabs (signal) - 1.0;
 		value += signal * curPersistence;
 
 		// Prepare the next octave.
-		x *= m_lacunarity;
-		y *= m_lacunarity;
-		z *= m_lacunarity;
-		curPersistence *= m_persistence;
+		x *= mLacunarity;
+		y *= mLacunarity;
+		z *= mLacunarity;
+		curPersistence *= mPersistence;
 	}
 
 	value += 0.5;
@@ -55,48 +56,48 @@ double Billow::getValue(double x, double y, double z) const
 
 double Billow::getFrequency() const
 {
-	return m_frequency;
+	return mFrequency;
 }
 
 double Billow::getLacunarity() const
 {
-	return m_lacunarity;
+	return mLacunarity;
 }
 
-noise::NoiseQuality Billow::getNoiseQuality() const
+NoiseQuality Billow::getNoiseQuality() const
 {
-	return m_noiseQuality;
+	return mNoiseQuality;
 }
 
 int Billow::getOctaveCount() const
 {
-	return m_octaveCount;
+	return mOctaveCount;
 }
 
 double Billow::getPersistence() const
 {
-	return m_persistence;
+	return mPersistence;
 }
 
 int Billow::getSeed() const
 { 
-	return m_seed;
+	return mSeed;
 }
 
 void Billow::setFrequency(double frequency)
 {
-	m_frequency = frequency;
+	mFrequency = frequency;
 }
 
 void Billow::setLacunarity(double lacunarity)
 {
 	// For best results, set the lacunarity to a number between 1.5 and 3.5
-	m_lacunarity = lacunarity;
+	mLacunarity = lacunarity;
 }
 
-void Billow::setNoiseQuality(noise::NoiseQuality noiseQuality)
+void Billow::setNoiseQuality(NoiseQuality noiseQuality)
 {
-	m_noiseQuality = noiseQuality;
+	mNoiseQuality = noiseQuality;
 }
 
 void Billow::setOctaveCount(int octaveCount)
@@ -106,16 +107,16 @@ void Billow::setOctaveCount(int octaveCount)
 	  throw noise::ExceptionInvalidParam();
 	}
 
-	m_octaveCount = octaveCount;
+	mOctaveCount = octaveCount;
 }
 
 void Billow::setPersistence(double persistence)
 {
 	// For best results, set the persistence value to a number between 0.0 and 1.0
-	m_persistence = persistence;
+	mPersistence = persistence;
 }
 
 void Billow::setSeed(int seed)
 { 
-	m_seed = seed;
+	mSeed = seed;
 }

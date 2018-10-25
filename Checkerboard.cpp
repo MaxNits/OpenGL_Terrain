@@ -73,7 +73,7 @@ bool Checkerboard::isOdd(unsigned value) const
 	return (value % 2) != 0;
 }
 
-void noise::module::Checkerboard::setCoordsFactor(unsigned value)
+void Checkerboard::setCoordsFactor(unsigned value)
 {
 	mCoordsFactor = value;
 }

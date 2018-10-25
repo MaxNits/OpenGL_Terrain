@@ -23,13 +23,13 @@ public:
 	
 	void enableDistance(bool enable = true);
 
-    double GetDisplacement() const;
+    double getDisplacement() const;
 	
 	double getFrequency() const;
 
     int getSeed() const;
 
-    bool IsDistanceEnabled() const;
+    bool isDistanceEnabled() const;
     
     void setDisplacement(double displacement);
 
@@ -38,10 +38,10 @@ public:
     void setSeed(int seed);
 
 protected:
-    double m_displacement;
-    bool m_enableDistance;
-    double m_frequency;
-    int m_seed;
+    double mDisplacement;
+	double mFrequency;
+    int mSeed;
+	bool mEnableDistance;
 };
 
 } // namespace noise

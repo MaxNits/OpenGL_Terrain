@@ -16,23 +16,23 @@ CurveMapper::~CurveMapper()
 	delete[] mControlPoints;
 }
 
-void CurveMapper::AddControlPoint(double inputValue, double outputValue)
+void CurveMapper::addControlPoint(double inputValue, double outputValue)
 {
 	// Find the insertion point for the new control point and insert the new
 	// point at that position. The control point array will remain sorted by
 	// input value. It does not matter which order these points are added.
-	int insertionPos = FindInsertionPos(inputValue);
-	InsertAtPos(insertionPos, inputValue, outputValue);
+	int insertionPos = findInsertionPos(inputValue);
+	insertAtPos(insertionPos, inputValue, outputValue);
 }
 
-void CurveMapper::ClearAllControlPoints()
+void CurveMapper::clearAllControlPoints()
 {
 	delete[] mControlPoints;
 	mControlPoints = NULL;
 	mControlPointCount = 0;
 }
 
-int CurveMapper::FindInsertionPos(double inputValue)
+int CurveMapper::findInsertionPos(double inputValue)
 {
 	int insertionPos = 0;
 
@@ -104,13 +104,14 @@ double CurveMapper::getValue(double x, double y, double z) const
 						alpha);
 }
 
-void CurveMapper::InsertAtPos(int insertionPos, double inputValue, double outputValue)
+void CurveMapper::insertAtPos(int insertionPos, double inputValue, double outputValue)
 {
 	// Make room for the new control point at the specified position within the
 	// control point array.  The position is determined by the input value of
 	// the control point; the control points must be sorted by input value
 	// within that array.
 	ControlPoint* newControlPoints = new ControlPoint[mControlPointCount + 1];
+
 	for (int i = 0; i < mControlPointCount; i++)
 	{
 		if (i < insertionPos)
@@ -133,12 +134,12 @@ void CurveMapper::InsertAtPos(int insertionPos, double inputValue, double output
 	mControlPoints[insertionPos].outputValue = outputValue;
 }
 
-const ControlPoint* noise::module::CurveMapper::GetControlPointArray() const
+const ControlPoint* CurveMapper::getControlPointArray() const
 {
 	return mControlPoints;
 }
 
-int CurveMapper::GetControlPointCount() const
+int CurveMapper::getControlPointCount() const
 {
 	return mControlPointCount;
 }

@@ -38,8 +38,9 @@ public:
 	void setSpheresCenter(double x, double y, double z);
 
 protected:
-    double mFrequency;
 	SperesCenter mSpheresCenter;
+
+    double mFrequency;
 };
 
 } // namespace module

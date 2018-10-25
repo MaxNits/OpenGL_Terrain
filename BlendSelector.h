@@ -17,7 +17,7 @@ public:
 
 	virtual double getValue(double x, double y, double z) const override;
 
-	const Module& GetControlModule() const;
+	const Module& getControlModule() const;
 
     void setControlModule(const Module& controlModule);
 };

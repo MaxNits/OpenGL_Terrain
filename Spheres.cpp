@@ -4,7 +4,7 @@
 
 using namespace noise::module;
 
-const double DEFAULT_SPHERES_FREQUENCY = 1.0;
+constexpr double DEFAULT_SPHERES_FREQUENCY = 1.0;
 
 Spheres::Spheres()
 	: Module(getSourceModuleCount())

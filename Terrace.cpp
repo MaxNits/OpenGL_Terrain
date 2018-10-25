@@ -7,45 +7,45 @@ using namespace noise;
 
 Terrace::Terrace()
 	:  Module (getSourceModuleCount())
-	, m_controlPointCount (0)
-	, m_invertTerraces (false)
-	, m_pControlPoints (NULL)
+	, mControlPointCount (0)
+	, mInvertTerraces (false)
+	, mControlPoints (NULL)
 {
 }
 
 Terrace::~Terrace()
 {
-	delete[] m_pControlPoints;
+	delete[] mControlPoints;
 }
 
-void Terrace::AddControlPoint(double value)
+void Terrace::addControlPoint(double value)
 {
 	// Find the insertion point for the new control point and insert the new
 	// point at that position.  The control point array will remain sorted by
 	// value.
-	int insertionPos = FindInsertionPos(value);
-	InsertAtPos(insertionPos, value);
+	int insertionPos = findInsertionPos(value);
+	insertAtPos(insertionPos, value);
 }
 
-void Terrace::ClearAllControlPoints()
+void Terrace::clearAllControlPoints()
 {
-	delete[] m_pControlPoints;
-	m_pControlPoints = NULL;
-	m_controlPointCount = 0;
+	delete[] mControlPoints;
+	mControlPoints = NULL;
+	mControlPointCount = 0;
 }
 
-int Terrace::FindInsertionPos(double value)
+int Terrace::findInsertionPos(double value)
 {
 	int insertionPos;
-	for (insertionPos = 0; insertionPos < m_controlPointCount; insertionPos++)
+	for (insertionPos = 0; insertionPos < mControlPointCount; insertionPos++)
 	{
-		if (value < m_pControlPoints[insertionPos])
+		if (value < mControlPoints[insertionPos])
 		{
 			// We found the array index in which to insert the new control point.
 			// Exit now.
 			break;
 		} 
-		else if (value == m_pControlPoints[insertionPos])
+		else if (value == mControlPoints[insertionPos])
 		{
 			// Each control point is required to contain a unique value, so throw
 			// an exception.
@@ -59,7 +59,7 @@ int Terrace::FindInsertionPos(double value)
 double Terrace::getValue(double x, double y, double z) const
 {
 	assert (m_pSourceModule[0] != NULL);
-	assert (m_controlPointCount >= 2);
+	assert (mControlPointCount >= 2);
 
 	// Get the output value from the source module.
 	double sourceModuleValue = mSourceModule[0]->getValue (x, y, z);
@@ -67,17 +67,17 @@ double Terrace::getValue(double x, double y, double z) const
 	// Find the first element in the control point array that has a value
 	// larger than the output value from the source module.
 	int indexPos;
-	for (indexPos = 0; indexPos < m_controlPointCount; indexPos++)
+	for (indexPos = 0; indexPos < mControlPointCount; indexPos++)
 	{
-		if (sourceModuleValue < m_pControlPoints[indexPos]) {
+		if (sourceModuleValue < mControlPoints[indexPos]) {
 			break;
 		}
 	}
 
 	// Find the two nearest control points so that we can map their values
 	// onto a quadratic curve.
-	int index0 = ClampValue (indexPos - 1, 0, m_controlPointCount - 1);
-	int index1 = ClampValue (indexPos    , 0, m_controlPointCount - 1);
+	int index0 = ClampValue (indexPos - 1, 0, mControlPointCount - 1);
+	int index1 = ClampValue (indexPos    , 0, mControlPointCount - 1);
 
 	// If some control points are missing (which occurs if the output value from
 	// the source module is greater than the largest value or less than the
@@ -85,14 +85,14 @@ double Terrace::getValue(double x, double y, double z) const
 	// control point and exit now.
 	if (index0 == index1)
 	{
-		return m_pControlPoints[index1];
+		return mControlPoints[index1];
 	}
 
 	// Compute the alpha value used for linear interpolation.
-	double value0 = m_pControlPoints[index0];
-	double value1 = m_pControlPoints[index1];
+	double value0 = mControlPoints[index0];
+	double value1 = mControlPoints[index1];
 	double alpha = (sourceModuleValue - value0) / (value1 - value0);
-	if (m_invertTerraces)
+	if (mInvertTerraces)
 	{
 		alpha = 1.0 - alpha;
 		SwapValues (value0, value1);
@@ -105,62 +105,62 @@ double Terrace::getValue(double x, double y, double z) const
 	return LinearInterp (value0, value1, alpha);
 }
 
-void Terrace::InsertAtPos(int insertionPos, double value)
+void Terrace::insertAtPos(int insertionPos, double value)
 {
 	// Make room for the new control point at the specified position within
 	// the control point array.  The position is determined by the value of
 	// the control point; the control points must be sorted by value within
 	// that array.
-	double* newControlPoints = new double[m_controlPointCount + 1];
+	double* newControlPoints = new double[mControlPointCount + 1];
 
-	for (int i = 0; i < m_controlPointCount; i++)
+	for (int i = 0; i < mControlPointCount; i++)
 	{
 		if (i < insertionPos)
 		{
-			newControlPoints[i] = m_pControlPoints[i];
+			newControlPoints[i] = mControlPoints[i];
 		} 
 		else
 		{
-			newControlPoints[i + 1] = m_pControlPoints[i];
+			newControlPoints[i + 1] = mControlPoints[i];
 		}
 	}
 
-	delete[] m_pControlPoints;
-	m_pControlPoints = newControlPoints;
-	++m_controlPointCount;
+	delete[] mControlPoints;
+	mControlPoints = newControlPoints;
+	++mControlPointCount;
 
 	// Now that we've made room for the new control point within the array,
 	// add the new control point.
-	m_pControlPoints[insertionPos] = value;
+	mControlPoints[insertionPos] = value;
 }
 
-void Terrace::MakeControlPoints(int controlPointCount)
+void Terrace::makeControlPoints(int controlPointCount)
 {
 	if (controlPointCount < 2)
 	{
 		throw noise::ExceptionInvalidParam ();
 	}
 
-	ClearAllControlPoints();
+	clearAllControlPoints();
 
 	double terraceStep = 2.0 / ((double)controlPointCount - 1.0);
 	double curValue = -1.0;
 
 	for (int i = 0; i < (int)controlPointCount; i++) 
 	{
-		AddControlPoint (curValue);
+		addControlPoint (curValue);
 		curValue += terraceStep;
 	}
 }
 
-const double* Terrace::GetControlPointArray() const
+const double* Terrace::getControlPointArray() const
 {
-	return m_pControlPoints;
+	return mControlPoints;
 }
 
-int Terrace::GetControlPointCount() const
+int Terrace::getControlPointCount() const
 {
-	return m_controlPointCount;
+	return mControlPointCount;
 }
 
 int Terrace::getSourceModuleCount() const
@@ -168,12 +168,12 @@ int Terrace::getSourceModuleCount() const
 	return 1;
 }
 
-void Terrace::InvertTerraces(bool invert /*= true*/)
+void Terrace::invertTerraces(bool invert /*= true*/)
 {
-	m_invertTerraces = invert;
+	mInvertTerraces = invert;
 }
 
-bool Terrace::IsTerracesInverted() const
+bool Terrace::isTerracesInverted() const
 {
-	return m_invertTerraces;
+	return mInvertTerraces;
 }

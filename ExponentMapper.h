@@ -8,7 +8,7 @@ namespace noise
 namespace module
 {
 
-const double DEFAULT_EXPONENT = 1.0;
+constexpr double DEFAULT_EXPONENT = 1.0;
 
 class ExponentMapper : public Module
 {
@@ -19,9 +19,9 @@ public:
 
 	virtual double getValue(double x, double y, double z) const override;
 
-    double GetExponent() const;
+    double getExponent() const;
 
-    void SetExponent(double exponent);
+    void setExponent(double exponent);
 
 protected:
     double mExponent;

@@ -28,7 +28,7 @@ public:
 
     double getLacunarity() const;
 
-    noise::NoiseQuality getNoiseQuality() const;
+    NoiseQuality getNoiseQuality() const;
 
     int getOctaveCount() const;
 
@@ -45,14 +45,14 @@ public:
     void setSeed(int seed);
 
 protected:
-    void CalcSpectralWeights();
+    void calcSpectralWeights();
 
-    double m_frequency;
-    double m_lacunarity;
-    noise::NoiseQuality m_noiseQuality;
-    int m_octaveCount;
-    double m_pSpectralWeights[RIDGED_MAX_OCTAVE];
-    int m_seed;
+	NoiseQuality mNoiseQuality;
+	double mSpectralWeights[RIDGED_MAX_OCTAVE];
+    double mFrequency;
+    double mLacunarity;
+    int mOctaveCount;
+    int mSeed;
 };
 
 } // namespace noise

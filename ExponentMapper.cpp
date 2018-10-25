@@ -21,7 +21,7 @@ double ExponentMapper::getValue(double x, double y, double z) const
 	return (pow(fabs((value + 1.0) / 2.0), mExponent) * 2.0 - 1.0);
 }
 
-double ExponentMapper::GetExponent() const
+double ExponentMapper::getExponent() const
 {
 	return mExponent;
 }
@@ -31,7 +31,7 @@ int ExponentMapper::getSourceModuleCount() const
 	return 1;
 }
 
-void ExponentMapper::SetExponent(double exponent)
+void ExponentMapper::setExponent(double exponent)
 {
 	mExponent = exponent;
 }

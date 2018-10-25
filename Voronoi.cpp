@@ -5,10 +5,10 @@ using namespace noise::module;
 
 Voronoi::Voronoi()
 	: Module(getSourceModuleCount())
-    , m_displacement(DEFAULT_VORONOI_DISPLACEMENT)
-    , m_enableDistance(false)
-    , m_frequency(DEFAULT_VORONOI_FREQUENCY)
-    , m_seed(DEFAULT_VORONOI_SEED)
+    , mDisplacement(DEFAULT_VORONOI_DISPLACEMENT)
+    , mEnableDistance(false)
+    , mFrequency(DEFAULT_VORONOI_FREQUENCY)
+    , mSeed(DEFAULT_VORONOI_SEED)
 {
 }
 
@@ -16,13 +16,13 @@ double Voronoi::getValue(double x, double y, double z) const
 {
 	// This method could be more efficient by caching the seed values. Fix later.
 	
-	x *= m_frequency;
-	y *= m_frequency;
-	z *= m_frequency;
+	x *= mFrequency;
+	y *= mFrequency;
+	z *= mFrequency;
 	
-	int xInt = (x > 0.0? (int)x: (int)x - 1);
-	int yInt = (y > 0.0? (int)y: (int)y - 1);
-	int zInt = (z > 0.0? (int)z: (int)z - 1);
+	int xInt = (x > 0.0 ? (int)x : (int)x - 1);
+	int yInt = (y > 0.0 ? (int)y : (int)y - 1);
+	int zInt = (z > 0.0 ? (int)z : (int)z - 1);
 	
 	double minDist = 2147483647.0;
 	double xCandidate = 0;
@@ -40,9 +40,9 @@ double Voronoi::getValue(double x, double y, double z) const
 			{
 				// Calculate the position and distance to the seed point inside of
 				// this unit cube.
-				double xPos = xCur + ValueNoise3D (xCur, yCur, zCur, m_seed    );
-				double yPos = yCur + ValueNoise3D (xCur, yCur, zCur, m_seed + 1);
-				double zPos = zCur + ValueNoise3D (xCur, yCur, zCur, m_seed + 2);
+				double xPos = xCur + ValueNoise3D(xCur, yCur, zCur, mSeed    );
+				double yPos = yCur + ValueNoise3D(xCur, yCur, zCur, mSeed + 1);
+				double zPos = zCur + ValueNoise3D(xCur, yCur, zCur, mSeed + 2);
 				double xDist = xPos - x;
 				double yDist = yPos - y;
 				double zDist = zPos - z;
@@ -63,14 +63,14 @@ double Voronoi::getValue(double x, double y, double z) const
 	
 	double value;
 
-	if (m_enableDistance)
+	if (mEnableDistance)
 	{
 		// Determine the distance to the nearest seed point.
 		double xDist = xCandidate - x;
 		double yDist = yCandidate - y;
 		double zDist = zCandidate - z;
 
-		value = (sqrt (xDist * xDist + yDist * yDist + zDist * zDist)) * SQRT_3 - 1.0;
+		value = (sqrt(xDist * xDist + yDist * yDist + zDist * zDist)) * SQRT_3 - 1.0;
 	}
 	else
 	{
@@ -78,25 +78,25 @@ double Voronoi::getValue(double x, double y, double z) const
 	}
 	
 	// Return the calculated distance with the displacement value applied.
-	return value + (m_displacement * (double)ValueNoise3D (
-	  (int)(floor (xCandidate)),
-	  (int)(floor (yCandidate)),
-	  (int)(floor (zCandidate))));
+	return value + (mDisplacement * (double)ValueNoise3D(
+		(int)(floor(xCandidate)),
+		(int)(floor(yCandidate)),
+		(int)(floor(zCandidate))));
 }
 
 void Voronoi::enableDistance(bool enable /*= true*/)
 {
-	m_enableDistance = enable;
+	mEnableDistance = enable;
 }
 
-double Voronoi::GetDisplacement() const
+double Voronoi::getDisplacement() const
 {
-	return m_displacement;
+	return mDisplacement;
 }
 
 double Voronoi::getFrequency() const
 {
-	return m_frequency;
+	return mFrequency;
 }
 
 int Voronoi::getSourceModuleCount() const
@@ -106,25 +106,25 @@ int Voronoi::getSourceModuleCount() const
 
 int Voronoi::getSeed() const
 {
-	return m_seed;
+	return mSeed;
 }
 
-bool Voronoi::IsDistanceEnabled() const
+bool Voronoi::isDistanceEnabled() const
 {
-	return m_enableDistance;
+	return mEnableDistance;
 }
 
 void Voronoi::setDisplacement(double displacement)
 {
-	m_displacement = displacement;
+	mDisplacement = displacement;
 }
 
 void Voronoi::setFrequency(double frequency)
 {
-	m_frequency = frequency;
+	mFrequency = frequency;
 }
 
 void Voronoi::setSeed(int seed)
 {
-	m_seed = seed;
+	mSeed = seed;
 }

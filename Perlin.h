@@ -8,13 +8,13 @@ namespace noise
 namespace module
 {
 
-const double DEFAULT_PERLIN_FREQUENCY = 1.0;
-const double DEFAULT_PERLIN_LACUNARITY = 2.0;
-const int DEFAULT_PERLIN_OCTAVE_COUNT = 6;
-const double DEFAULT_PERLIN_PERSISTENCE = 0.5;
-const noise::NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
-const int DEFAULT_PERLIN_SEED = 0;
-const int PERLIN_MAX_OCTAVE = 30;
+constexpr NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
+constexpr double DEFAULT_PERLIN_FREQUENCY = 1.0;
+constexpr double DEFAULT_PERLIN_LACUNARITY = 2.0;
+constexpr double DEFAULT_PERLIN_PERSISTENCE = 0.5;
+constexpr int DEFAULT_PERLIN_OCTAVE_COUNT = 6;
+constexpr int DEFAULT_PERLIN_SEED = 0;
+constexpr int PERLIN_MAX_OCTAVE = 30;
 
 class Perlin: public Module
 {
@@ -50,10 +50,11 @@ public:
     void setSeed(int seed);
 
 protected:
+	NoiseQuality m_noiseQuality;
     double m_frequency;
     double m_lacunarity;
-    noise::NoiseQuality m_noiseQuality;	int m_octaveCount;
-    double m_persistence;
+	double m_persistence;
+	int m_octaveCount;
     int m_seed;
 };
 

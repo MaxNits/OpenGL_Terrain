@@ -1,6 +1,7 @@
 #include "BlendSelector.h"
 #include "interp.h"
 
+using namespace noise;
 using namespace noise::module;
 
 BlendSelector::BlendSelector()
@@ -20,11 +21,11 @@ double BlendSelector::getValue(double x, double y, double z) const
 	return LinearInterp(v0, v1, alpha);
 }
 
-const Module& noise::module::BlendSelector::GetControlModule() const
+const Module& BlendSelector::getControlModule() const
 {
 	if (mSourceModule == NULL || mSourceModule[2] == NULL)
 	{
-		throw noise::ExceptionNoModule();
+		throw ExceptionNoModule();
 	}
 
 	return *(mSourceModule[2]);

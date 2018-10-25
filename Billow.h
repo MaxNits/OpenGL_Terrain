@@ -8,13 +8,13 @@ namespace noise
 namespace module
 {
 
-const double DEFAULT_BILLOW_FREQUENCY = 1.0;
-const double DEFAULT_BILLOW_LACUNARITY = 2.0;
-const int DEFAULT_BILLOW_OCTAVE_COUNT = 6;
-const double DEFAULT_BILLOW_PERSISTENCE = 0.5;
-const noise::NoiseQuality DEFAULT_BILLOW_QUALITY = QUALITY_STD;
-const int DEFAULT_BILLOW_SEED = 0;
-const int BILLOW_MAX_OCTAVE = 30;
+constexpr NoiseQuality DEFAULT_BILLOW_QUALITY = QUALITY_STD;
+constexpr double DEFAULT_BILLOW_FREQUENCY = 1.0;
+constexpr double DEFAULT_BILLOW_LACUNARITY = 2.0;
+constexpr double DEFAULT_BILLOW_PERSISTENCE = 0.5;
+constexpr int BILLOW_MAX_OCTAVE = 30;
+constexpr int DEFAULT_BILLOW_OCTAVE_COUNT = 6;
+constexpr int DEFAULT_BILLOW_SEED = 0;
 
 class Billow: public Module
 {
@@ -29,7 +29,7 @@ public:
 
     double getLacunarity() const;
     
-	noise::NoiseQuality getNoiseQuality() const;
+	NoiseQuality getNoiseQuality() const;
 
     int getOctaveCount() const;
 
@@ -41,7 +41,7 @@ public:
 
     void setLacunarity(double lacunarity);
     
-    void setNoiseQuality(noise::NoiseQuality noiseQuality);
+    void setNoiseQuality(NoiseQuality noiseQuality);
 
     void setOctaveCount(int octaveCount);
 
@@ -50,12 +50,13 @@ public:
     void setSeed(int seed);
 
 protected:
-    double m_frequency;
-    double m_lacunarity;
-    noise::NoiseQuality m_noiseQuality;
-    int m_octaveCount;
-    double m_persistence;
-    int m_seed;
+	NoiseQuality mNoiseQuality;
+
+    double mFrequency;
+    double mLacunarity;
+	double mPersistence;
+    int mOctaveCount;
+    int mSeed;
 };
 
 } // namespace module

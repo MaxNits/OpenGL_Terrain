@@ -31,21 +31,21 @@ public:
 
 	virtual double getValue(double x, double y, double z) const override;
     
-    void AddControlPoint(double inputValue, double outputValue);
+    void addControlPoint(double inputValue, double outputValue);
 
-    void ClearAllControlPoints();
+    void clearAllControlPoints();
 
-    const ControlPoint* GetControlPointArray() const;
+    const ControlPoint* getControlPointArray() const;
 
-	int GetControlPointCount() const;
+	int getControlPointCount() const;
 
 protected:
-    int FindInsertionPos(double inputValue);
+    int findInsertionPos(double inputValue);
 
-    void InsertAtPos(int insertionPos, double inputValue, double outputValue);
+    void insertAtPos(int insertionPos, double inputValue, double outputValue);
 
-    int mControlPointCount;
     ControlPoint* mControlPoints;
+	int mControlPointCount;
 };
 
 } // namespace module

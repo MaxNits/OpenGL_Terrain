@@ -19,27 +19,28 @@ public:
 
 	virtual double getValue(double x, double y, double z) const override;
 	
-	void AddControlPoint (double value);
+	void addControlPoint(double value);
 	
-	void ClearAllControlPoints();
+	void clearAllControlPoints();
 	
-	const double* GetControlPointArray() const;
+	const double* getControlPointArray() const;
 	
-	int GetControlPointCount() const;
+	int getControlPointCount() const;
 	
-	void InvertTerraces(bool invert = true);
+	void invertTerraces(bool invert = true);
 	
-	bool IsTerracesInverted() const;
+	bool isTerracesInverted() const;
    
-    void MakeControlPoints(int controlPointCount);
+    void makeControlPoints(int controlPointCount);
 
 protected:
-	int FindInsertionPos(double value);
-	void InsertAtPos(int insertionPos, double value);
+	int findInsertionPos(double value);
 
-	int m_controlPointCount;
-	bool m_invertTerraces;
-	double* m_pControlPoints;
+	void insertAtPos(int insertionPos, double value);
+
+	int mControlPointCount;
+	bool mInvertTerraces;
+	double* mControlPoints;
 };
 
 } // namespace module
