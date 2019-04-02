@@ -43,6 +43,12 @@ void TerrainHandle::setHeight(unsigned x, unsigned z, float y)
     mNormalsComputed = false;
 }
 
+void TerrainHandle::resizeTerrain(unsigned width, unsigned length)
+{
+	mTerrainWidth = width;
+	mTerrainLength = length;
+}
+
 float TerrainHandle::getHeight(unsigned x, unsigned z)
 {
     return mHeights[x][z];
@@ -158,7 +164,8 @@ void TerrainHandle::computeNormals()
         }
     }
 
-    for (unsigned i = 0; i < mTerrainLength; i++) {
+    for (unsigned i = 0; i < mTerrainLength; i++)
+	{
         delete[] normals_temp[i];
     }
     delete[] normals_temp;

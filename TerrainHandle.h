@@ -15,6 +15,8 @@ public:
 
     void setHeight(unsigned x, unsigned z, float y);
 
+	void resizeTerrain(unsigned width, unsigned length);
+
     float getHeight(unsigned x, unsigned z);
 
     unsigned getWidth();
@@ -26,11 +28,10 @@ public:
     Vec3f getNormal(unsigned x, unsigned z);
 
 private:
+	Vec3f** mNormals;
+	float** mHeights;
+
     unsigned mTerrainWidth;
     unsigned mTerrainLength;
-
-    Vec3f** mNormals;
-    float** mHeights;
-
     bool mNormalsComputed;
 };

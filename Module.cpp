@@ -27,11 +27,11 @@ Module::~Module()
 	delete[] mSourceModule;
 }
 
-const Module& Module::getSourceModule(int index) const
+const Module& Module::getSourceModule(unsigned index) const
 {
 	assert(mSourceModule != NULL);
 
-	if (index >= getSourceModuleCount() || index < 0 || mSourceModule[index] == NULL)
+	if (index >= getSourceModuleCount() || mSourceModule[index] == NULL)
 	{
 		throw noise::ExceptionNoModule();
 	}
@@ -39,11 +39,11 @@ const Module& Module::getSourceModule(int index) const
 	return *(mSourceModule[index]);
 }
 
-void Module::getSourceModule(int index, const Module& sourceModule)
+void Module::setSourceModule(unsigned index, const Module& sourceModule)
 {
 	assert(mSourceModule != NULL);
 
-	if (index >= getSourceModuleCount() || index < 0)
+	if (index >= getSourceModuleCount())
 	{
 		throw noise::ExceptionInvalidParam();
 	}

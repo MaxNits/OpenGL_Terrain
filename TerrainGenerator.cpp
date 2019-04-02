@@ -61,8 +61,8 @@ TerrainGenerator::TerrainGenerator(float width, float height)
 	mModules.push_back(checkerboardModule);
 
 	std::shared_ptr<BlendSelector> blendSelectorModule = std::make_shared<BlendSelector>();
-	blendSelectorModule->getSourceModule(0, *ridgedModule);
-	blendSelectorModule->getSourceModule(1, *billowModule);
+	//blendSelectorModule->getSourceModule(0, *ridgedModule);
+	//blendSelectorModule->getSourceModule(1, *billowModule);
 	blendSelectorModule->setControlModule(*checkerboardModule);
 	mModules.push_back(blendSelectorModule);
 
